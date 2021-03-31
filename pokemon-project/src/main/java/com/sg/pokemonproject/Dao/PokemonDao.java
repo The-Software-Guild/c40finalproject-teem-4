@@ -14,7 +14,4 @@ public interface PokemonDao {
     public void deletePokemonById(int id);
     public List<Pokemon> getAll();
 
-    public List<Ability> getAbilitiesForPokemon(Pokemon pokemon);
-    public Type getTypeForPokemon(Pokemon pokemon);
-
 }
