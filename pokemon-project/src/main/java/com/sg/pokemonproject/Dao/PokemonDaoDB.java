@@ -23,7 +23,7 @@ public class PokemonDaoDB implements PokemonDao{
     @Override
     @Transactional
     public Pokemon addPokemon(Pokemon pokemon) {
-        final String INSERT_POKEMON = "INSERT INTO pokemon(superHumanName, superDescription, isEvil, powerId) "
+        final String INSERT_POKEMON = "INSERT INTO pokemon(name, health, weight, height, typeid, image, price) "
                 + "VALUES(?,?,?,?)";
         jdbc.update(INSERT_POKEMON,
                 pokemon.getName(),
