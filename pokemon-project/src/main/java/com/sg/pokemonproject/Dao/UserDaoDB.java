@@ -94,7 +94,7 @@ public class UserDaoDB implements UserDao{
                 " join User_Pokemon up on p.Pokemonid=up.Pokemonid " +
                 " where up.Userid=? ;";
 
-        return jdbc.query(sql, new PokemonMapper(), user.getId());
+        return jdbc.query(sql, new PokemonDaoDB.PokemonMapper(), user.getId());
     }
 
     @Override
