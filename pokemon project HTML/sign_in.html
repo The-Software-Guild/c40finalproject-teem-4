@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/styles.css"/>
     <title>Sign In</title>
 </head>
 <body id="createAccountBody">
@@ -29,30 +31,30 @@
     <div class="container">
         <form id="createForm">
             <h1 class="text-center">
-                Create an account
+                Sign In
             </h1>
             <div class="form-row">
               <div class="form-group col-md-6">
-                <label for="firstName">First Name</label>
-                <input type="text" class="form-control" id="inputFirstName" placeholder="Enter your first name">
+                <label for="firstName">Email</label>
+                <input type="email" class="form-control" id="inputEmailSignin" placeholder="Enter your email">
               </div>
               <div class="form-group col-md-6">
                 <label for="lastName">Last Name</label>
-                <input type="text" class="form-control" id="inputLastName" placeholder="Enter your last name">
+                <input type="password" class="form-control" id="inputPasswordSignin" placeholder="Enter your password">
               </div>
             </div>
-            <div class="form-group">
-              <label for="inputEmail">Email</label>
-              <input type="email" class="form-control" id="inputEmail" placeholder="Email">
-            </div>
-            <div class="form-group">
-              <label for="inputPassword">Password</label>
-              <input type="password" class="form-control" id="inputPassword" placeholder="Password">
-            </div>
+            <div class="row">
+                <div class="col-sm-6">
             <button type="submit" class="btn btn-info">Sign In</button>
+        </div>
+        <div class="col-sm-6">
+            <button type="button" class="btn btn-info">Create an account</button>
+        </div>
+        </div>
           </form>
+        </div>
           <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-</div>
+
 </html>

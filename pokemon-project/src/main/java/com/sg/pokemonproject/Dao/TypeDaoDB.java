@@ -4,12 +4,14 @@ import com.sg.pokemonproject.Entity.Type;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+@Repository
 public class TypeDaoDB implements TypeDao {
 
     @Autowired
@@ -60,7 +62,7 @@ public class TypeDaoDB implements TypeDao {
         return jdbc.query(SELECT_ALL_TYPES, new TypeMapper());
     }
 
-    private static final class TypeMapper implements RowMapper<Type>{
+    public static final class TypeMapper implements RowMapper<Type>{
 
         @Override
         public Type mapRow(ResultSet resultSet, int i) throws SQLException {
