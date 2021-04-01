@@ -6,11 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+@Repository
 public class UserDaoDB implements UserDao{
     private final JdbcTemplate jdbc;
 
@@ -94,7 +96,7 @@ public class UserDaoDB implements UserDao{
                 " join User_Pokemon up on p.Pokemonid=up.Pokemonid " +
                 " where up.Userid=? ;";
 
-        return jdbc.query(sql, new PokemonMapper(), user.getId());
+        return jdbc.query(sql, new PokemonDaoDB.PokemonMapper(), user.getId());
     }
 
     @Override

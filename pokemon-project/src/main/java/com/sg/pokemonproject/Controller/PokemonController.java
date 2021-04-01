@@ -5,6 +5,7 @@ import com.sg.pokemonproject.Dao.PokemonDao;
 import com.sg.pokemonproject.Dao.TypeDao;
 import com.sg.pokemonproject.Entity.Ability;
 import com.sg.pokemonproject.Entity.Pokemon;
+import com.sg.pokemonproject.Entity.Type;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
