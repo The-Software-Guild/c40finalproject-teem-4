@@ -7,6 +7,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,15 +15,12 @@ import java.util.List;
 
 @Repository
 public class UserDaoDB implements UserDao{
-    private final JdbcTemplate jdbc;
-
 
     @Autowired
-    public UserDaoDB(JdbcTemplate jdbc) {
-        this.jdbc = jdbc;
-    }
+    JdbcTemplate jdbc;
 
     @Override
+    @Transactional
     public User addUser(User user) {
 
         final String INSERT_User = "INSERT INTO User(FirstName, LastName, Money, Email, password) " +
@@ -34,7 +32,7 @@ public class UserDaoDB implements UserDao{
                 user.getEmail(),
                 user.getPassword());
 
-        int newId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
+        int newId = jdbc.queryForObject("Select Last_Insert_Id()", Integer.class);
         user.setId(newId);
         insertUserPokemons(user);
         return user;
@@ -54,7 +52,7 @@ public class UserDaoDB implements UserDao{
     @Override
     public User getUserById(int id) {
         try {
-            final String sql = "SELECT * FROM user WHERE id = ? ;";
+            final String sql = "SELECT * FROM user WHERE Userid = ? ;";
             User user = jdbc.queryForObject(sql, new UserMapper(), id);
             user.setPokemons(getPokemonsForUser(user));
             return user;
@@ -72,7 +70,7 @@ public class UserDaoDB implements UserDao{
                 + "Money= ?, "
                 + "Email= ?, "
                 + "password= ? "
-                + "WHERE id = ?;";
+                + "WHERE Userid = ?;";
 
         jdbc.update(sql,
                 user.getFirstName(),
@@ -97,8 +95,12 @@ public class UserDaoDB implements UserDao{
     }
 
     @Override
+    @Transactional
     public void deleteUser(int id) {
-        final String DELETE_USER = "DELETE FROM user WHERE id = ?";
+        final String DELETE_USER_POKEMON = "DELETE FROM User_Pokemon WHERE Userid = ?";
+        jdbc.update(DELETE_USER_POKEMON, id);
+
+        final String DELETE_USER = "DELETE FROM user WHERE Userid = ?";
         jdbc.update(DELETE_USER, id);
     }
 
