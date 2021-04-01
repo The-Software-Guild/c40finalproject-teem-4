@@ -6,6 +6,7 @@ import com.sg.pokemonproject.Entity.User;
 import java.util.List;
 
 public interface UserDao {
+
     public User addUser(User user);
     public User getUserById(int id);
     public void updateUser(User user);
