@@ -36,8 +36,20 @@ public class UserDaoDB implements UserDao{
 
         int newId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
         user.setId(newId);
+        insertUserPokemons(user);
         return user;
     }
+
+    private void insertUserPokemons(User user) {
+        final String sql = "INSERT INTO "
+                + "User_Pokemon (Pokemonid, Userid) VALUES(?,?)";
+        for(Pokemon pokemon : user.getPokemons()) {
+            jdbc.update(sql,
+                    pokemon.getId(),
+                    user.getId());
+        }
+    }
+
 
     @Override
     public User getUserById(int id) {
