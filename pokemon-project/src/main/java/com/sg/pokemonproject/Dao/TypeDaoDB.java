@@ -60,7 +60,7 @@ public class TypeDaoDB implements TypeDao {
         return jdbc.query(SELECT_ALL_TYPES, new TypeMapper());
     }
 
-    public static final class TypeMapper implements RowMapper<Type>{
+    private static final class TypeMapper implements RowMapper<Type>{
 
         @Override
         public Type mapRow(ResultSet resultSet, int i) throws SQLException {
