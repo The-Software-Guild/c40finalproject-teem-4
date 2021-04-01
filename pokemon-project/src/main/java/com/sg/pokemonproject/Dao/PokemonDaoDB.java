@@ -94,9 +94,17 @@ public class PokemonDaoDB implements PokemonDao{
     public List<Pokemon> getAll() {
         final String SELECT_ALL_POKEMON = "SELECT * FROM pokemon";
         List<Pokemon> pokemon = jdbc.query(SELECT_ALL_POKEMON, new PokemonMapper());
+        associateTypeAndAbilities(pokemon);
         return pokemon;
     }
 
+    private void associateTypeAndAbilities(List<Pokemon> pokemon) {
+        for (Pokemon pokemons : pokemon) {
+            pokemons.setType(getTypeForPokemon(pokemons.getId()));
+            pokemons.setAbilities(getAbilitiesForPokemon(pokemons.getId()));
+        }
+
+    }
 
     private List<Ability> getAbilitiesForPokemon(int id) {
         final String SELECT_ABILITY_FOR_POKE = "SELECT a.* FROM ability a JOIN poke_ability pa ON a.abilityId = pa.abilityId WHERE pa.pokemonid = ?";
