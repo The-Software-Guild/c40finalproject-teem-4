@@ -134,13 +134,13 @@ public class PokemonController {
     }
 
     // Use a get mapping to direct to this page, use the id value retrieved as a hidden element in html
-    // If user hits "yes", super human will be deleted using the id
+    // If user hits "yes", pokemon will be deleted using the id
     // This is an addition I made to the superheroes since I used a page rather than javascript
-//    @GetMapping("confirmDeleteSuperHumans")
-//    public String confirmDeleteSuperHumans(Integer id, Model model) {
-//        SuperHumans supers = superhumansDao.getSuperHumanById(id);
-//        model.addAttribute("supers", supers);
-//        return "confirmDeleteSuperHumans";
+//    @GetMapping("admin/confirmDeletePokemon")
+//    public String confirmDeletePokemon(Integer id, Model model) {
+//        Pokemon pokemon = pokemonDao.getPokemonById(id);
+//        model.addAttribute("pokemon", pokemon);
+//        return "admin/confirmDeletePokemon";
 //    }
 
 }
