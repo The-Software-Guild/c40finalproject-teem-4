@@ -24,59 +24,52 @@ public class AbilityController {
     }
 
     @PostMapping("admin/addAbility")
-    public String addAbility(String organizationName, String organizationDescription,
-                                  String address, String contactInfo) {
+    public String addAbility(String name, int AP, int attack) {
 
-        Organizations organization = new Organizations();
-        organization.setOrganizationName(organizationName);
-        organization.setOrganizationDescription(organizationDescription);
-        organization.setAddress(address);
-        organization.setContactInfo(contactInfo);
+        Ability abilities = new Ability();
+        abilities.setName(name);
+        abilities.setAP(AP);
+        abilities.setAttack(attack);
 
-        Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
-        violations = validate.validate(organization);
-
-        if(violations.isEmpty()) {
-            organizationsDao.addOrganization(organization);
-        }
+        abilityDao.addAbility(abilities);
 
         return "redirect:/admin/displayAbility";
     }
 
     @GetMapping("admin/editAbility")
-    public String editOrganization(Integer id, Model model) {
-        Organizations organization = organizationsDao.getOrganizationById(id);
-        model.addAttribute("organization", organization);
+    public String editAbility(Integer id, Model model) {
+        Ability abilities = abilityDao.getAbilityById(id);
+        model.addAttribute("abilities", abilities);
         return "admin/editAbility";
     }
 
-    @PostMapping("editOrganization")
-    public String performEditOrganization(@Valid Organizations organization, BindingResult result) {
+    @PostMapping("admin/editAbility")
+    public String performEditAbility(Ability abilities, BindingResult result) {
         if(result.hasErrors()) {
-            return "editOrganization";
+            return "admin/editAbility";
         }
-        organizationsDao.updateOrganization(organization);
+        abilityDao.updateAbility(abilities);
 
-        return "redirect:/organizations";
+        return "redirect:/admin/editAbility";
     }
 
-    @GetMapping("organizationDetail")
-    public String organizationDetail(Integer id, Model model) {
-        Organizations organization = organizationsDao.getOrganizationById(id);
-        model.addAttribute("organization", organization);
-        return "organizationDetail";
+    @GetMapping("admin/abilityDetail")
+    public String abilityDetail(Integer id, Model model) {
+        Ability abilities = abilityDao.getAbilityById(id);
+        model.addAttribute("abilities", abilities);
+        return "admin/abilityDetail";
     }
 
-    @GetMapping("confirmDeleteOrganization")
-    public String confirmDeleteOrganization(Integer id, Model model) {
-        Organizations organization = organizationsDao.getOrganizationById(id);
-        model.addAttribute("organization", organization);
-        return "confirmDeleteOrganization";
-    }
+//    @GetMapping("admin/confirmDeleteAbility")
+//    public String confirmDeleteAbility(Integer id, Model model) {
+//        Ability abilities = abilityDao.getAbilityById(id);
+//        model.addAttribute("abilities", abilities);
+//        return "admin/confirmDeleteAbility";
+//    }
 
-    @GetMapping("deleteOrganization")
-    public String deleteOrganization(Integer id) {
-        organizationsDao.deleteOrganizationById(id);
-        return "redirect:/organizations";
+    @GetMapping("admin/deleteAbility")
+    public String deleteAbility(Integer id) {
+        abilityDao.deleteAbilityById(id);
+        return "redirect:/admin/displayAbility";
     }
 }
