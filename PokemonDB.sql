@@ -42,6 +42,7 @@ CREATE TABLE `Pokemon` (
 CREATE TABLE `User_Pokemon` (
   `Pokemonid` INT ,
   `Userid` INT,
+  `Health` INT,
   PRIMARY KEY(`Pokemonid`, `Userid`),
   foreign key(`Pokemonid`) REFERENCES Pokemon(`Pokemonid`),
   foreign key(`Userid`) REFERENCES `User`(`Userid`)
