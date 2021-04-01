@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,7 +17,7 @@ public class AbilityDaoDB implements AbilityDao {
     @Autowired
     JdbcTemplate jdbc;
 
-
+    @Transactional
     @Override
     public Ability addAbility(Ability ability) {
         final String sql = "Insert into Ability(Name, AP, Attack) Values(?,?,?)";
@@ -45,6 +46,7 @@ public class AbilityDaoDB implements AbilityDao {
         jdbc.update(sql, ability.getName(), ability.getAP(), ability.getAttack(), ability.getId());
     }
 
+    @Transactional
     @Override
     public void deleteAbilityById(int id) {
         final String sql1 = "Delete From Poke_Ability Where Abilityid = ?";
