@@ -30,15 +30,33 @@ public class BattleService {
     Pokemon userPokemon;
     Pokemon opponent;
 
-    public BattleService(int userId, int userPokemonId, int opponentId) {
-        user = userDao.getUserById(userId);
-        userPokemon = pokeDao.getPokemonById(userPokemonId);
-        opponent = pokeDao.getPokemonById(opponentId);
+    public BattleService() {
     }
 
     //user has 6 AP at the beginning of their turn and chooses an ability until no AP is left
     //once opponent is at 0 HP, user wins and gains x amount of coins and adds the opponent Pokemon into their collection
     //if opponent wins, user gets neither money nor the pokemon
+
+    public User getUser() {
+        return user;
+    }
+    public void setUser(int userId) {
+        this.user = userDao.getUserById(userId);
+    }
+
+    public Pokemon getUserPokemon() {
+        return userPokemon;
+    }
+    public void setUserPokemon(int pokeId) {
+        this.userPokemon = pokeDao.getPokemonById(pokeId);
+    }
+
+    public Pokemon getOpponent() {
+        return opponent;
+    }
+    public void setOpponent(int opponentId) {
+        this.opponent = pokeDao.getPokemonById(opponentId);
+    }
 
     public String userAttack(int ap, int chosenAbilityId) {
         Ability chosenAbility = abilityDao.getAbilityById(chosenAbilityId);
