@@ -14,16 +14,16 @@ public class SignInController {
     @Autowired
     UserDao userDao;
 
-    @GetMapping("signIn")
+    @GetMapping("signin")
     public String addUser(HttpServletRequest request){
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
         if(userDao.login(email, password)){
-            return "battlePage";
+            return "cards";
         }
         else{
-            return "badSignin";
+            return "signin";
         }
 
     }
