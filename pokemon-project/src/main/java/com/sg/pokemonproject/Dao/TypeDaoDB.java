@@ -17,8 +17,8 @@ public class TypeDaoDB implements TypeDao {
     @Autowired
     JdbcTemplate jdbc;
 
-
     @Override
+    @Transactional
     public Type addType(Type type) {
         final String INSERT_TYPE = "INSERT INTO Type(`Name`) VALUES (?)";
         jdbc.update(INSERT_TYPE, type.getName());
@@ -38,7 +38,7 @@ public class TypeDaoDB implements TypeDao {
 
     @Override
     public void updateType(Type type) {
-        final String UPDATE_TYPE = "INSERT Type SET Name = ? WHERE Typeid = ?";
+        final String UPDATE_TYPE = "UPDATE Type SET Name = ? WHERE Typeid = ?";
 
         jdbc.update(UPDATE_TYPE,
                 type.getName(),
