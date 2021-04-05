@@ -91,9 +91,9 @@
                     <td th:text="${ability.name}">Name</td>
                     <td th:text="${ability.AP}">AP</td>
                     <td th:text="${ability.attack}">Attack</td>
-                    <td><a href="#" th:href="@{/editAbility(id=${ability.id})}">Edit</a></td>
+                    <td><a href="#" th:href="@{editAbility(id=${ability.id})}">Edit</a></td>
                     <td><a href="#" onclick="if (!confirm('Are you sure want to delete?')) {
-                    event.preventDefault();} "th:href="@{/deleteAbility(id=${ability.id})}">Delete</a></td>
+                    event.preventDefault();} "th:href="@{deleteAbility(id=${ability.id})}">Delete</a></td>
                 </tr>
                 </tbody>
             </table>
