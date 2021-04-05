@@ -40,10 +40,10 @@
         <div class="col-sm-12 m-1 text-center">
         </div>
         <div class="col-sm-3 text-center m-3">
-            <span class="h3">Add Ability</span>
+            <span class="h3">Add Pokemon</span>
         </div>
         <div class="col-sm-7 text-center m-3">
-            <form action="addAbility" method="POST">
+            <form action="addPokemon" method="POST">
                 <div class="form-group row">
                     <label for="name" class="col-sm-3 col-form-label">
                         Name</label>
@@ -53,22 +53,68 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="AP" class="col-sm-3 col-form-label">
-                        Action Power</label>
+                    <label for="health" class="col-sm-3 col-form-label">
+                       Health </label>
                     <div class="col-sm-9">
-                        <input type="number" name="AP"
-                               id="AP" class="form-control" required/>
+                        <input type="number" name="health"
+                               id="health" class="form-control" required/>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="attack" class="col-sm-3 col-form-label">
-                        Attack</label>
+                    <label for="weight" class="col-sm-3 col-form-label">
+                        Weight </label>
                     <div class="col-sm-9">
-                        <input type="number" name="attack"
-                               id="attack" class="form-control" required/>
+                        <input type="number" name="weight"
+                               id="weight" class="form-control" required/>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-info">Add Ability</button>
+                <div class="form-group row">
+                    <label for="height" class="col-sm-3 col-form-label">
+                        Weight </label>
+                    <div class="col-sm-9">
+                        <input type="number" name="height"
+                               id="height" class="form-control" required/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="image" class="col-sm-3 col-form-label">
+                        Weight </label>
+                    <div class="col-sm-9">
+                        <input type="text" name="image"
+                               id="image" class="form-control" required/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="price" class="col-sm-3 col-form-label">
+                        Weight </label>
+                    <div class="col-sm-9">
+                        <input type="text" name="price"
+                               id="price" class="form-control" required/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="typeId" class="col-3 col-form-label">
+                        Type</label>
+                    <div class="col-9">
+                        <select name="typeId" id="typeId" class="form-control">
+                            <option th:each="types : ${type}" th:value="${types.id}"
+                                    th:text="${types.name}" class="form-control"> Type Name
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="abilityId" class="col-3 col-form-label">
+                        Abilities</label>
+                    <div class="col-9">
+                        <select multiple name="abilityId" id="abilityId" class="form-control">
+                            <option th:each="ability : ${abilities}" th:value="${ability.id}"
+                                    th:text="${ability.name}" class="form-control"> Ability Names
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-info">Add Pokemon</button>
             </form>
         </div>
     </div>
@@ -79,21 +125,21 @@
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
-                    <th>AP (Action Power)</th>
-                    <th>Attack</th>
+                    <th>Type</th>
+                    <th>Details</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="ability : ${abilities}">
-                    <td th:text="${ability.id}">Ability ID</td>
-                    <td th:text="${ability.name}">Name</td>
-                    <td th:text="${ability.AP}">AP</td>
-                    <td th:text="${ability.attack}">Attack</td>
-                    <td><a href="#" th:href="@{/editAbility(id=${ability.id})}">Edit</a></td>
+                <tr th:each="pokemons : ${pokemon}">
+                    <td th:text="${pokemons.id}">Pokemon ID</td>
+                    <td th:text="${pokemons.name}">Name</td>
+                    <td th:text="${pokemons.type.name}">Type</td>
+                    <td><a href="#" th:href="@{/pokemonDetails(id=${pokemons.id})}">Details</a></td>
+                    <td><a href="#" th:href="@{/editAbility(id=${pokemons.id})}">Edit</a></td>
                     <td><a href="#" onclick="if (!confirm('Are you sure want to delete?')) {
-                    event.preventDefault();} "th:href="@{/deleteAbility(id=${ability.id})}">Delete</a></td>
+                    event.preventDefault();} "th:href="@{/deleteAbility(id=${pokemons.id})}">Delete</a></td>
                 </tr>
                 </tbody>
             </table>
