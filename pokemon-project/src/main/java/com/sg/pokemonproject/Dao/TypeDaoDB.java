@@ -23,7 +23,7 @@ public class TypeDaoDB implements TypeDao {
         final String INSERT_TYPE = "INSERT INTO Type(`Name`) VALUES (?)";
         jdbc.update(INSERT_TYPE, type.getName());
 
-        int newId = jdbc.queryForObject("SELECT_LAST_INSERT_ID()", Integer.class);
+        int newId = jdbc.queryForObject("Select Last_Insert_Id()", Integer.class);
         type.setId(newId);
 
         return type;
@@ -38,11 +38,9 @@ public class TypeDaoDB implements TypeDao {
 
     @Override
     public void updateType(Type type) {
-        final String UPDATE_TYPE = "INSERT Type SET Name = ? WHERE Typeid = ?";
+        final String UPDATE_TYPE = "UPDATE Type SET Name = ? WHERE Typeid = ?";
 
-        jdbc.update(UPDATE_TYPE,
-                type.getName(),
-                type.getId());
+        jdbc.update(UPDATE_TYPE, type.getName(), type.getId());
     }
 
     @Override

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../static/styles.css"/>
+    <title>Pokemon Manager</title>
+</head>
+<body style="margin-top: 100px; background-image: url('../images/pikachu.png')">
+
+<nav class="navbar navbar-expand-lg navbar-light bg-dark fixed-top">
+    <a class="navbar-brand text-white" style="font-size:30px" href="#">Pokemon Manager</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link text-white" href="displayPokemon">Pokemon<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="displayUsers">Users</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="displayTypes">Type<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="displayAbility">Ability</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row m-4 border border-dark rounded bg-light">
+        <div class="col-sm-6 text-right mb-2"><strong>ID</strong></div>
+        <div class="col-sm-6 text-left mb-2">
+            <span th:text="${user.id}">display id</span>
+        </div>
+        <br />
+        <div class="col-sm-6 text-right mb-2"><strong>First Name</strong></div>
+        <div class="col-sm-6 text-left mb-2">
+            <span th:text="${user.firstName}">display first name</span>
+        </div>
+        <br />
+        <div class="col-sm-6 text-right mb-2"><strong>Last Name</strong></div>
+        <div class="col-sm-6 text-left mb-2">
+            <span th:text="${user.lastName}">display last name</span>
+        </div>
+        <br />
+        <div class="col-sm-6 text-right mb-2"><strong>Email</strong></div>
+        <div class="col-sm-6 text-left mb-2">
+            <span th:text="${user.email}">display email</span>
+        </div>
+        <br />
+        <div class="col-sm-6 text-right mb-2"><strong>Password</strong></div>
+        <div class="col-sm-6 text-left mb-2">
+            <span th:text="${user.password}">display password</span>
+        </div>
+        <div class="col-sm-6 text-right mb-2"><strong>Money</strong></div>
+        <div class="col-sm-6 text-left mb-2">
+            <span th:text="${user.money}">display money</span>
+        </div>
+        <div class="col-sm-6 text-right mb-2"><strong>Pokemon</strong></div>
+        <div class="col-sm-6 text-left mb-2">
+            <span th:each="pokemons : ${user.pokemons}">
+            <span th:text="${pokemons.name}">display Pokemon Names</span><br />
+                </span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm text-center">
+            <a href="displayUsers" class="btn btn-secondary text-center">Back</a>
+        </div>
+    </div>
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>
+</html>;

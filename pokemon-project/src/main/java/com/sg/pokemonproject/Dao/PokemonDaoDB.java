@@ -24,7 +24,7 @@ public class PokemonDaoDB implements PokemonDao{
     @Transactional
     public Pokemon addPokemon(Pokemon pokemon) {
         final String INSERT_POKEMON = "INSERT INTO pokemon(name, health, weight, height, typeid, image, price) "
-                + "VALUES(?,?,?,?)";
+                + "VALUES(?,?,?,?,?,?,?)";
         jdbc.update(INSERT_POKEMON,
                 pokemon.getName(),
                 pokemon.getHealth(),
@@ -34,7 +34,7 @@ public class PokemonDaoDB implements PokemonDao{
                 pokemon.getImage(),
                 pokemon.getPrice());
 
-        int newId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
+        int newId = jdbc.queryForObject("Select Last_Insert_Id()", Integer.class);
         pokemon.setId(newId);
         insertPokeAndAbility(pokemon);
         return pokemon;

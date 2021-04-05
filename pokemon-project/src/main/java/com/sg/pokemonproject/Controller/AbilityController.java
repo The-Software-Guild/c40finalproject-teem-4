@@ -50,7 +50,7 @@ public class AbilityController {
         }
         abilityDao.updateAbility(abilities);
 
-        return "redirect:/admin/editAbility";
+        return "redirect:/admin/displayAbility";
     }
 
     @GetMapping("admin/abilityDetail")

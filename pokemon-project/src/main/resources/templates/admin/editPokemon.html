@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../static/styles.css"/>
+    <title>Pokemon Manager</title>
+</head>
+<body style="margin-top: 100px; background-image: url('../images/pikachu.png')">
+
+<nav class="navbar navbar-expand-lg navbar-light bg-dark fixed-top">
+    <a class="navbar-brand text-white" style="font-size:30px" href="#">Pokemon Manager</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link text-white" href="displayPokemon">Pokemon<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="displayUsers">Users</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="displayTypes">Type<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="displayAbility">Ability</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row m-4 border border-dark rounded bg-light">
+        <div class="col-sm-3 text-center m-3">
+            <span class="h3">Edit Pokemon</span>
+        </div>
+        <div class="col-sm-7 text-center m-3">
+            <form action="editPokemon" method="POST">
+                <div class="form-group row">
+                    <label for="name" class="col-sm-3 col-form-label">
+                        Name</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="name" id="name"
+                               class="form-control" th:value="${pokemon.name}" required/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="health" class="col-sm-3 col-form-label">
+                        Health</label>
+                    <div class="col-sm-9">
+                        <input type="number" name="health" id="health"
+                               class="form-control"  th:value="${pokemon.health}" required/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="weight" class="col-sm-3 col-form-label">
+                        Weight </label>
+                    <div class="col-sm-9">
+                        <input type="number" step="any" name="weight"
+                               id="weight" class="form-control" th:value="${pokemon.weight}" required/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="height" class="col-sm-3 col-form-label">
+                        Height </label>
+                    <div class="col-sm-9">
+                        <input type="number" step="any" name="height"
+                               id="height" class="form-control" th:value="${pokemon.height}" required/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="image" class="col-sm-3 col-form-label">
+                        Image URL </label>
+                    <div class="col-sm-9">
+                        <input type="text" name="image"
+                               id="image" class="form-control" th:value="${pokemon.image}" required/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="price" class="col-sm-3 col-form-label">
+                        Price </label>
+                    <div class="col-sm-9">
+                        <input type="number" step="any" name="price"
+                               id="price" class="form-control" th:value="${pokemon.price}" required/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="typeId" class="col-sm-3 col-form-label">
+                        Type </label>
+                    <div class="col-sm-9">
+                        <select name="typeId" id="typeId" class="form-control"/>
+                        <option th:each="types : ${type}" th:value="${types.id}"
+                                th:text="${types.name}" th:selected="${pokemon.type.id}"> Type Name
+                        </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="abilityId" class="col-3 col-form-label">
+                        Abilities </label>
+                    <div class="col-9">
+                        <select multiple name="abilityId" id="abilityId" class="form-control">
+                            <option th:each="ability : ${abilities}" th:value="${ability.id}"
+                                    th:text="${ability.name}" class="form-control"> Ability Name
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <input type="hidden" name="id" th:value="${pokemon.id}" />
+                <button type="submit" class="btn btn-success">Update Pokemon</button>
+                <a href="displayPokemon" class="btn btn-secondary">Back</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>
+</html>;
