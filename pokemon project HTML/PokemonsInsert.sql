@@ -26,7 +26,7 @@ INSERT INTO Ability (`name`, AP, Attack) VALUES ("keen-eye", 4, 6);
 
 -- new Pokemon 1
 INSERT INTO pokemon (`name`, weight, height, typeid, image, price, health) 
-VALUES ("bulbasaur", 69 ,7, 1,"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/1.png",10 , 10);
+VALUES ("bulbasaur", 69 ,7, 1,"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",10 , 10);
 
 INSERT INTO poke_ability (Pokemonid, Abilityid) VALUES (1,1);
 INSERT INTO poke_ability (Pokemonid, Abilityid) VALUES (1,2);
