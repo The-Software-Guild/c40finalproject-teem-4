@@ -84,6 +84,17 @@
                                id="money" class="form-control" required/>
                     </div>
                 </div>
+                <div class="form-group row">
+                    <label for="pokemonId" class="col-3 col-form-label">
+                        Pokemon </label>
+                    <div class="col-9">
+                        <select multiple name="pokemonId" id="pokemonId" class="form-control">
+                            <option th:each="pokemons : ${pokemon}" th:value="${pokemons.id}"
+                                    th:text="${pokemons.name}" class="form-control"> Pokemon Names
+                            </option>
+                        </select>
+                    </div>
+                </div>
                 <button type="submit" class="btn btn-info">Add User</button>
             </form>
         </div>
@@ -103,13 +114,13 @@
                 </thead>
                 <tbody>
                 <tr th:each="users : ${user}">
-                    <td th:text="${users.userid}">ID</td>
-                    <td th:text="${users.firstname}">First Name</td>
-                    <td th:text="${users.lastname}">Last Name</td>
-                    <td><a href="#" th:href="@{@userDetails(id=${users.userid})}">Details</a></td>
-                    <td><a href="#" th:href="@{editUser(id=${users.userid})}">Edit</a></td>
+                    <td th:text="${users.id}">ID</td>
+                    <td th:text="${users.firstName}">First Name</td>
+                    <td th:text="${users.lastName}">Last Name</td>
+                    <td><a href="#" th:href="@{userDetails(id=${users.id})}">Details</a></td>
+                    <td><a href="#" th:href="@{editUser(id=${users.id})}">Edit</a></td>
                     <td><a href="#" onclick="if (!confirm('Are you sure want to delete?')) {
-                    event.preventDefault();} "th:href="@{deleteUser(id=${users.userid})}">Delete</a></td>
+                    event.preventDefault();} "th:href="@{deleteUser(id=${users.id})}">Delete</a></td>
                 </tr>
                 </tbody>
             </table>

@@ -60,7 +60,7 @@
                 </div>
                 <div class="form-group row">
                     <label for="email" class="col-sm-3 col-form-label">
-                        Attack</label>
+                        Email</label>
                     <div class="col-sm-9">
                         <input type="email" name="email" id="email"
                                class="form-control" th:value="${user.email}" required/>
@@ -68,7 +68,7 @@
                 </div>
                 <div class="form-group row">
                     <label for="password" class="col-sm-3 col-form-label">
-                        Attack</label>
+                        Password</label>
                     <div class="col-sm-9">
                         <input type="password" name="password" id="password"
                                class="form-control" th:value="${user.password}" required/>
@@ -76,13 +76,13 @@
                 </div>
                 <div class="form-group row">
                     <label for="money" class="col-sm-3 col-form-label">
-                        Attack</label>
+                        Money</label>
                     <div class="col-sm-9">
                         <input type="number" step="any" name="money" id="money"
                                class="form-control" th:value="${user.money}" required/>
                     </div>
                 </div>
-                <input type="hidden" name="id" th:value="${user.userid}" />
+                <input type="hidden" name="id" th:value="${user.id}" />
                 <button type="submit" class="btn btn-success">Update User</button>
                 <a href="displayUsers" class="btn btn-secondary">Back</a>
             </form>
