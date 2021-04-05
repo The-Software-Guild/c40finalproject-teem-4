@@ -1,5 +1,6 @@
 .backgroundImage {
-    background-image: url("pikachu.png");
+    width: 100%;
+    background-image: url('../images/pikachu.png');
 }
 
 .cssForForm {

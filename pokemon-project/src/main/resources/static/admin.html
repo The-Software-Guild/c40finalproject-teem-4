@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../static/styles.css"/>
     <title>Admin Pokemon Manager</title>
 </head>
-<body style="margin-top: 100px" class="backgroundImage">
+<body style="margin-top: 100px; background-image: url('/images/pikachu.png')">
 
 <nav class="navbar navbar-expand-lg navbar-light bg-dark fixed-top">
     <a class="navbar-brand text-white" style="font-size:30px" href="#">Pokemon Manager</a>
@@ -24,16 +24,16 @@
 <div class="container">
     <div class="row m-4 border border-dark bg-light rounded">
         <div class="col text-center m-3">
-            <a href="../templates/admin/pokemon" class="btn btn-outline-secondary btn-lg">Pokemon</a>
+            <a href="/admin/displayPokemon" class="btn btn-outline-secondary btn-lg">Pokemon</a>
         </div>
         <div class="col text-center m-3">
-            <a href="../templates/admin/ability" class="btn btn-outline-secondary btn-lg">Abilities</a>
+            <a href="/admin/displayUsers" class="btn btn-outline-secondary btn-lg">Users</a>
         </div>
         <div class="col text-center m-3">
-            <a href="../templates/admin/type" class="btn btn-outline-secondary btn-lg">Types</a>
+            <a href="/admin/displayTypes" class="btn btn-outline-secondary btn-lg">Types</a>
         </div>
         <div class="col text-center m-3">
-            <a href="../templates/admin/pokemon" class="btn btn-outline-secondary btn-lg">Users</a>
+            <a href="/admin/displayAbility" class="btn btn-outline-secondary btn-lg">Abilities</a>
         </div>
     </div>
 </div>
