@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" media="screen" th:href="@{/css/styles.css}"/>
 
-    <title>Admin Pokemon Manager</title>
+    <title>Pokemon Manager</title>
+
 </head>
 <body style="margin-top: 100px; background-image: url('images/pikachu.png')">
 
@@ -43,12 +44,33 @@
                 <div class="flip-card">
                     <div class="flip-card-inner">
                         <div class="flip-card-front">
-                            <br>
+                            <br />
                             <h3 th:text="${pokemons.name}">Name</h3>
                             <img  th:src="${pokemons.image}"  height="120px"/>
-                            <h6>Health: </h6><h6 th:text="${pokemons.health}"> Health    </h6>
-                            <h6 th:text="${pokemons.weight}+' ' + Kg"  > weight</h6>
-                            <h6 th:text="${pokemons.height}+' ' + m"  > height</h6>
+                            <div class="row mt-3">
+                                <div class="col-sm text-right">
+                                    <h6>Health: </h6>
+                                </div>
+                                <div class="col-sm text-left">
+                                    <h6 th:text="${pokemons.health}"> Health    </h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm text-right">
+                                    <h6>Weight: </h6>
+                                </div>
+                                <div class="col-sm text-left">
+                                    <h6 th:text="${pokemons.weight}+' ' + Kg"  > weight</h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm text-right">
+                                    <h6>Height: </h6>
+                                </div>
+                                <div class="col-sm text-left">
+                                    <h6 th:text="${pokemons.height}+' ' + m"  > height</h6>
+                                </div>
+                            </div>
 
                         </div>
                         <div class="flip-card-back">
