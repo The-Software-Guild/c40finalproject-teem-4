@@ -17,8 +17,8 @@ public class TypeDaoDB implements TypeDao {
     @Autowired
     JdbcTemplate jdbc;
 
-
     @Override
+    @Transactional
     public Type addType(Type type) {
         final String INSERT_TYPE = "INSERT INTO Type(`Name`) VALUES (?)";
         jdbc.update(INSERT_TYPE, type.getName());
