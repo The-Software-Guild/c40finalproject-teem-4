@@ -136,7 +136,7 @@
                     <td th:text="${pokemons.id}">Pokemon ID</td>
                     <td th:text="${pokemons.name}">Name</td>
                     <td th:text="${pokemons.type.name}">Type</td>
-                    <td><a href="#" th:href="@{pokemonDetails(id=${pokemons.id})}">Details</a></td>
+                    <td><a href="#" th:href="@{pokemonDetail(id=${pokemons.id})}">Details</a></td>
                     <td><a href="#" th:href="@{editPokemon(id=${pokemons.id})}">Edit</a></td>
                     <td><a href="#" onclick="if (!confirm('Are you sure want to delete?')) {
                     event.preventDefault();} "th:href="@{deletePokemon(id=${pokemons.id})}">Delete</a></td>
