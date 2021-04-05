@@ -40,35 +40,51 @@
         <div class="col-sm-12 m-1 text-center">
         </div>
         <div class="col-sm-3 text-center m-3">
-            <span class="h3">Add Ability</span>
+            <span class="h3">Add User</span>
         </div>
         <div class="col-sm-7 text-center m-3">
-            <form action="addAbility" method="POST">
+            <form action="addUser" method="POST">
                 <div class="form-group row">
-                    <label for="name" class="col-sm-3 col-form-label">
-                        Name</label>
+                    <label for="firstName" class="col-sm-3 col-form-label">
+                        First Name</label>
                     <div class="col-sm-9">
-                        <input type="text" name="name"
-                               id="name" class="form-control" required/>
+                        <input type="text" name="firstName"
+                               id="firstName" class="form-control" required/>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="AP" class="col-sm-3 col-form-label">
-                        Action Power</label>
+                    <label for="lastName" class="col-sm-3 col-form-label">
+                        Last Name</label>
                     <div class="col-sm-9">
-                        <input type="number" name="AP"
-                               id="AP" class="form-control" required/>
+                        <input type="text" name="lastName"
+                               id="lastName" class="form-control" required/>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="attack" class="col-sm-3 col-form-label">
-                        Attack</label>
+                    <label for="email" class="col-sm-3 col-form-label">
+                        Email</label>
                     <div class="col-sm-9">
-                        <input type="number" name="attack"
-                               id="attack" class="form-control" required/>
+                        <input type="email" name="email"
+                               id="email" class="form-control" required/>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-info">Add Ability</button>
+                <div class="form-group row">
+                    <label for="password" class="col-sm-3 col-form-label">
+                        Password</label>
+                    <div class="col-sm-9">
+                        <input type="password" name="password"
+                               id="password" class="form-control" required/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="money" class="col-sm-3 col-form-label">
+                        Money</label>
+                    <div class="col-sm-9">
+                        <input type="number" step="any" name="money"
+                               id="money" class="form-control" required/>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-info">Add User</button>
             </form>
         </div>
     </div>
@@ -78,22 +94,22 @@
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Name</th>
-                    <th>AP (Action Power)</th>
-                    <th>Attack</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Details</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="ability : ${abilities}">
-                    <td th:text="${ability.id}">Ability ID</td>
-                    <td th:text="${ability.name}">Name</td>
-                    <td th:text="${ability.AP}">AP</td>
-                    <td th:text="${ability.attack}">Attack</td>
-                    <td><a href="#" th:href="@{editAbility(id=${ability.id})}">Edit</a></td>
+                <tr th:each="users : ${user}">
+                    <td th:text="${users.userid}">ID</td>
+                    <td th:text="${users.firstname}">First Name</td>
+                    <td th:text="${users.lastname}">Last Name</td>
+                    <td><a href="#" th:href="@{@userDetails(id=${users.userid})}">Details</a></td>
+                    <td><a href="#" th:href="@{editUser(id=${users.userid})}">Edit</a></td>
                     <td><a href="#" onclick="if (!confirm('Are you sure want to delete?')) {
-                    event.preventDefault();} "th:href="@{deleteAbility(id=${ability.id})}">Delete</a></td>
+                    event.preventDefault();} "th:href="@{deleteUser(id=${users.userid})}">Delete</a></td>
                 </tr>
                 </tbody>
             </table>

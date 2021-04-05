@@ -31,6 +31,7 @@ public class UserController {
         user.setEmail(email);
         user.setPassword(password);
         user.setMoney(money);
+        user.setPokemons(pokemon);
 
         userDao.addUser(user);
 
