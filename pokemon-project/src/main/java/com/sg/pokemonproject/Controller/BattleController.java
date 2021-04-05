@@ -32,20 +32,21 @@ public class BattleController {
         List<Pokemon> otherPokemon = battleSelect.getOtherPokemon(userId);
         model.addAttribute("userPokemon", userPokemon);
         model.addAttribute("otherPokemon", otherPokemon);
-        return "battleSelect/"+userId;
+        return "battleSelect";
     }
-    @PostMapping("battleSelect/{id}")
-    public String performBattleSelect(@PathVariable("id") int userId, HttpServletRequest request) {
+    @PostMapping("battleSelect")
+    public String performBattleSelect(Integer userId, HttpServletRequest request) {
         String userPokeId = request.getParameter("userPokeId");
         String opponentPokeId = request.getParameter("opponentPokeId");
-        return "redirect:/battle/"+userId+"/"+userPokeId+"/"+opponentPokeId;
+        battleService.setUser(userId);
+        battleService.setUserPokemon(Integer.parseInt(userPokeId));
+        battleService.setOpponent(Integer.parseInt(opponentPokeId));
+        return "redirect:/battle"; //+userId+"/"+userPokeId+"/"+opponentPokeId
     }
 
-    @GetMapping("battle/{userId}/{userPokeId}/{opponentId}")
-    public String battle(@PathVariable("userId") int userId, @PathVariable("userPokeId") int userPokeId, @PathVariable("opponentId") int opponentId, Model model) {
-        battleService.setUser(userId);
-        battleService.setUserPokemon(userPokeId);
-        battleService.setOpponent(opponentId);
+    @GetMapping("battle")
+    ///{userId}/{userPokeId}/{opponentId}
+    public String battle(Integer userId, Integer userPokeId, Integer opponentId, Model model) {
         List<Ability> abilities = battleService.getUserPokemon().getAbilities();
         model.addAttribute("user", battleService.getUser());
         model.addAttribute("userPoke", battleService.getUserPokemon());
@@ -57,23 +58,29 @@ public class BattleController {
         return "battle";
     }
 
-    /*
-    @GetMapping("battle")
-    public String performBattle(HttpServletRequest request, Model model) {
-        return "battle";
-    }*/
     // either find a way to change the message every few seconds or use a button to get to next message
-    // use a button to end user turn then display opponent turn messages
-    // check when game is over
     @GetMapping("attack/{abilityId}")
     public String attack(@PathVariable("abilityId") int abilityId, Model model) {
-        String message = battleService.userAttack(AP, abilityId);
+        String message = battleService.userAttack(abilityId);
         model.addAttribute("message", message);
+        model.addAttribute("userAP", battleService.getUserAP());
         return "battle";
     }
 
+    //button to end user turn then display opponent turn messages
     @GetMapping("endTurn")
-    public String endTurn() {
+    public String endTurn(Model model) {
+        battleService.endUserTurn();
+        List<String> opponentMessages = battleService.opponentTurn();
+        model.addAttribute("userAP", battleService.getUserAP());
+        model.addAttribute("opponentMessages", opponentMessages);
         return "battle";
+    }
+
+    //button to return to battle select page
+    @GetMapping("returnToSelect")
+    public String returnToSelect() {
+        int userId = battleService.getUser().getId();
+        return "redirect:/battleSelect/"+userId;
     }
 }
