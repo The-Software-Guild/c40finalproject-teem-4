@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../static/styles.css"/>
+    <title>Users Manager</title>
+</head>
+<body style="margin-top: 100px; background-image: url('../images/pikachu.png')">
+
+<nav class="navbar navbar-expand-lg navbar-light bg-dark fixed-top">
+    <a class="navbar-brand text-white" style="font-size:30px" href="#">Pokemon Manager</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link text-white" href="displayPokemon">Pokemon<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="displayUsers">Users</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="displayTypes">Type<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="displayAbility">Ability</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row m-4 border border-dark rounded bg-light">
+        <div class="col-sm-12 m-1 text-center">
+        </div>
+        <div class="col-sm-3 text-center m-3">
+            <span class="h3">Add Ability</span>
+        </div>
+        <div class="col-sm-7 text-center m-3">
+            <form action="addAbility" method="POST">
+                <div class="form-group row">
+                    <label for="name" class="col-sm-3 col-form-label">
+                        Name</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="name"
+                               id="name" class="form-control" required/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="AP" class="col-sm-3 col-form-label">
+                        Action Power</label>
+                    <div class="col-sm-9">
+                        <input type="number" name="AP"
+                               id="AP" class="form-control" required/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="attack" class="col-sm-3 col-form-label">
+                        Attack</label>
+                    <div class="col-sm-9">
+                        <input type="number" name="attack"
+                               id="attack" class="form-control" required/>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-info">Add Ability</button>
+            </form>
+        </div>
+    </div>
+    <div class="row m-4 border border-dark rounded bg-light">
+        <div class="col-sm text-center m-3">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>AP (Action Power)</th>
+                    <th>Attack</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="ability : ${abilities}">
+                    <td th:text="${ability.id}">Ability ID</td>
+                    <td th:text="${ability.name}">Name</td>
+                    <td th:text="${ability.AP}">AP</td>
+                    <td th:text="${ability.attack}">Attack</td>
+                    <td><a href="#" th:href="@{/editAbility(id=${ability.id})}">Edit</a></td>
+                    <td><a href="#" onclick="if (!confirm('Are you sure want to delete?')) {
+                    event.preventDefault();} "th:href="@{/deleteAbility(id=${ability.id})}">Delete</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>
+</html>;
