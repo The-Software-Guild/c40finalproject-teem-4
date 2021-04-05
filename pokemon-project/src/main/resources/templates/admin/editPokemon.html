@@ -63,7 +63,7 @@
                         Weight </label>
                     <div class="col-sm-9">
                         <input type="text" name="weight"
-                               id="weight" class="form-control" required/>
+                               id="weight" class="form-control" th:value="${pokemon.weight}" required/>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -71,7 +71,7 @@
                         Height </label>
                     <div class="col-sm-9">
                         <input type="text" name="height"
-                               id="height" class="form-control" required/>
+                               id="height" class="form-control" th:value="${pokemon.height}" required/>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -79,7 +79,7 @@
                         Image URL </label>
                     <div class="col-sm-9">
                         <input type="text" name="image"
-                               id="image" class="form-control" required/>
+                               id="image" class="form-control" th:value="${pokemon.image}" required/>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -87,7 +87,7 @@
                         Price </label>
                     <div class="col-sm-9">
                         <input type="text" name="price"
-                               id="price" class="form-control" required/>
+                               id="price" class="form-control" th:value="${pokemon.price}" required/>
                     </div>
                 </div>
                 <div class="form-group row">
