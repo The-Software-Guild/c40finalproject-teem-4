@@ -31,13 +31,13 @@ public class TypeController {
 
         typeDao.addType(type);
 
-        return "redirect:/admin/addType";
+        return "redirect:/admin/displayTypes";
     }
 
     @GetMapping("admin/deleteType")
     public String deleteType(Integer id) {
         typeDao.deleteTypeById(id);
-        return "redirect:/admin/deleteType";
+        return "redirect:/admin/displayTypes";
     }
 
 

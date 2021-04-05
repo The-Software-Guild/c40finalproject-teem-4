@@ -88,6 +88,7 @@ public class UserDaoDB implements UserDao{
         associatePokemons(users);
         return users;
     }
+
     private void associatePokemons(List<User> users) {
         for (User user : users) {
             user.setPokemons(getPokemonsForUser(user));

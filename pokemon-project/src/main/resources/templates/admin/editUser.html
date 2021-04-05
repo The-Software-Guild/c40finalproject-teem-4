@@ -38,37 +38,53 @@
 <div class="container">
     <div class="row m-4 border border-dark rounded bg-light">
         <div class="col-sm-3 text-center m-3">
-            <span class="h3">Edit Ability</span>
+            <span class="h3">Edit User</span>
         </div>
         <div class="col-sm-7 text-center m-3">
-            <form action="editAbility" method="POST">
+            <form action="editUser" method="POST">
                 <div class="form-group row">
-                    <label for="name" class="col-sm-3 col-form-label">
-                        Name</label>
+                    <label for="firstName" class="col-sm-3 col-form-label">
+                        First Name</label>
                     <div class="col-sm-9">
-                        <input type="text" name="name" id="name"
-                               class="form-control" th:value="${abilities.name}" required/>
+                        <input type="text" name="firstName" id="firstName"
+                               class="form-control" th:value="${user.firstName}" required/>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="AP" class="col-sm-3 col-form-label">
-                        Action Power</label>
+                    <label for="lastName" class="col-sm-3 col-form-label">
+                        Last Name</label>
                     <div class="col-sm-9">
-                        <input type="number" name="AP" id="AP"
-                               class="form-control" th:value="${abilities.AP}" required/>
+                        <input type="text" name="lastName" id="lastName"
+                               class="form-control" th:value="${user.lastName}" required/>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="attack" class="col-sm-3 col-form-label">
+                    <label for="email" class="col-sm-3 col-form-label">
                         Attack</label>
                     <div class="col-sm-9">
-                        <input type="number" name="attack" id="attack"
-                               class="form-control" th:value="${abilities.attack}" required/>
+                        <input type="email" name="email" id="email"
+                               class="form-control" th:value="${user.email}" required/>
                     </div>
                 </div>
-                <input type="hidden" name="id" th:value="${abilities.id}" />
-                <button type="submit" class="btn btn-success">Update Ability</button>
-                <a href="displayAbility" class="btn btn-secondary">Back</a>
+                <div class="form-group row">
+                    <label for="password" class="col-sm-3 col-form-label">
+                        Attack</label>
+                    <div class="col-sm-9">
+                        <input type="password" name="password" id="password"
+                               class="form-control" th:value="${user.password}" required/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="money" class="col-sm-3 col-form-label">
+                        Attack</label>
+                    <div class="col-sm-9">
+                        <input type="number" step="any" name="money" id="money"
+                               class="form-control" th:value="${user.money}" required/>
+                    </div>
+                </div>
+                <input type="hidden" name="id" th:value="${user.userid}" />
+                <button type="submit" class="btn btn-success">Update User</button>
+                <a href="displayUsers" class="btn btn-secondary">Back</a>
             </form>
         </div>
     </div>

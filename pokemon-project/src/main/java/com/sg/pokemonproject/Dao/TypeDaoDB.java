@@ -40,9 +40,7 @@ public class TypeDaoDB implements TypeDao {
     public void updateType(Type type) {
         final String UPDATE_TYPE = "UPDATE Type SET Name = ? WHERE Typeid = ?";
 
-        jdbc.update(UPDATE_TYPE,
-                type.getName(),
-                type.getId());
+        jdbc.update(UPDATE_TYPE, type.getName(), type.getId());
     }
 
     @Override
