@@ -25,7 +25,7 @@ public class SignInController {
         }
 
         if(userDao.login(email, password)){
-            return "cards";
+            return "home";
         }
         else{
             model.addAttribute("badCredentials", true);

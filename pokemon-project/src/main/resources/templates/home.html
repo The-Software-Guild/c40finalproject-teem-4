@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <link rel="icon" href="images/pikachu.png" type="image/gif" sizes="16x16">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" media="screen" th:href="@{/css/styles.css}"/>
@@ -15,7 +15,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <title>Pokemon Manager</title>
+
     <style>
 body {font-family: Arial, Helvetica, sans-serif;}
 
@@ -97,9 +97,9 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
 </style>
 
+    <title>Pokemon Game</title>
 </head>
 <body style="margin-top: 100px; background-image: url('images/pikachu.png')">
-
 
 <nav class="navbar navbar-expand-lg navbar-light bg-dark fixed-top">
     <h2 style="color:white">Pokemon Game</h2>
@@ -112,63 +112,52 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
     <a href="signin"><i class="fa fa-sign-out"></i> Log Out</a>
 
+    <!--
+    <a href="profile"> <i class="fa fa-fw fa-user"></i> Profile</a>
+    <a href="updateProfile"><i class="fa fa-edit"></i> Update Profile</a>
+    <a href="signin"><i class="fa fa-sign-out"></i> Log Out</a>
+-->
 
 </nav>
 
 
-<div class="container">
-    <div class="row m-4 border border-dark rounded bg-light">
-        <div class="row20" >
-            <div class="column20" th:each="pokemons : ${pokemon}">
-                <div class="card20">
+<div class="container ">
+    <br>
+    <h1 class="text-center bg-light">Welcome to the Pokemon Game</h1>
 
-                            <br />
-                            <h3 th:text="${pokemons.name}">Name</h3>
-                            <img  th:src="${pokemons.image}"  height="120px"/>
-                            <div class="row mt-3">
-                                <div class="col-sm text-right">
-                                    <h6>Health: </h6>
-                                </div>
-                                <div class="col-sm text-left">
-                                    <h6 th:text="${pokemons.health}"> Health    </h6>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm text-right">
-                                    <h6>Weight: </h6>
-                                </div>
-                                <div class="col-sm text-left">
-                                    <h6 th:text="${pokemons.weight}+' ' + Kg"  > weight</h6>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm text-right">
-                                    <h6>Height: </h6>
-                                </div>
-                                <div class="col-sm text-left">
-                                    <h6 th:text="${pokemons.height}+' ' + m"  > height</h6>
-                                </div>
-                            </div>
-                    <div class="row">
-                        <div class="col-sm ">
-                        <button type="submit"  th:text="${pokemons.price}" class="btn btn-info"><i class="fa fa-money"></i>Buy for  </button>
-                        </div>
-                    </div>
+    <hr>
+    <br>
+    <div class="row bg-light">
+        <div class="column10" >
+            <img  src="../images/cards.png"   width="520px"/>
+        </div>
+        <div class="column10" >
+            <h3> Gameplay </h3>
 
-
-
-
-                </div>
-            </div>
+            <p>
+                - Each pokemon has their respective health, abilities and Action Points (AP).
+                </br>
+                - Each attack uses various amounts of AP, and does various amounts of damage to the opponent.
+                </br>
+                - Each attack subtracts from your AP; your turn ends when  there is not enough AP left to do any attack.
+                </br>
+                - User can earn money after each battle
+                </br>
+                - Money can be used to buy Pokemons or to upgrade them. </br>
+                - Game is over when all pokemon available have been obtained and user has the option to play again
+            </p>
         </div>
     </div>
+
+
 </div>
-
-
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
 </body>
 </html>;
