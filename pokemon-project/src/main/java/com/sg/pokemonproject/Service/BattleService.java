@@ -84,12 +84,12 @@ public class BattleService {
         this.setUserAP(userAP - chosenAbility.getAP()); // subtract amount of AP used from ability
         int opponentHealth = opponent.getHealth();
         if (opponentHealth - atk <= 0) { // user wins
-            message += opponent.getName() + " has fainted! " + opponent.getName() + " has been added to your bag!\n";
+            //message += opponent.getName() + " has fainted! " + opponent.getName() + " has been added to your bag!\n";
+            message += opponent.getName() + " has fainted! You gain 5 coins and " + opponent.getName() + " has been added to your bag!\n";
             message += "Return to the select page to battle another Pokemon!";
-            //message += opponent.getName() + " has fainted! You gain 50 coins and " + opponent.getName() + " has been added to your bag!\n";
             opponent.setHealth(0);
             double userMoney = user.getMoney();
-            //user.setMoney(userMoney + 50);
+            user.setMoney(userMoney + 5);
             List<Pokemon> userPokemon = user.getPokemons();
             userPokemon.add(pokeDao.getPokemonById(opponent.getId())); // adds to user pokemon from pokeDao since opponent health is modified
             user.setPokemons(userPokemon);

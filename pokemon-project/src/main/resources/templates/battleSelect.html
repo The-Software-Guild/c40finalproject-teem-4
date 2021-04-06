@@ -34,12 +34,49 @@
 </nav>
 
 <div class="container">
-    <div class="row m-4">
-        <div class="col-6 text-center">
-
+    <div class="text-center m-3">
+        <span class="h3">Send a Pokemon into Battle!</span>
+    </div>
+    <form class="text-center" action="battleSelect" method="POST">
+        <div class="row justify-content-md-center">
+            <div class="col-3">
+                <div class="form-group border border-primary rounded m-2">
+                    <div class="m-2">
+                        <label for="uPokemon" class="col-10 col-form-label-lg">
+                            Select your Pokemon</label>
+                        <div class="col">
+                            <select id="uPokemon" name="userPokeId" class="form-control" >
+                                <option th:each="uPoke : ${userPokemon}"
+                                        th:value="${uPoke.id}"
+                                        th:text="${uPoke.name}">
+                                    Pokemon Name</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group border border-primary rounded m-2">
+                    <div class="m-2">
+                        <label for="opponent" class="col-10 col-form-label-lg">
+                            Select your Opponent</label>
+                        <div class="col">
+                            <select id="opponent" name="opponentPokeId" class="form-control" >
+                                <option th:each="opponent : ${otherPokemon}"
+                                        th:value="${opponent.id}"
+                                        th:text="${opponent.name}">
+                                    Opponent Name</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-6 text-center">
-
+        <button type="submit" class="btn btn-primary btn-lg m-2">Start Battle!</button>
+    </form>
+    <div class="row text-center">
+        <div class="col">
+        <img src="https://i.pinimg.com/originals/72/50/94/72509461a6b249869b84a653b4294af3.gif" class="img-fluid" alt="gif">
         </div>
     </div>
 </div>
