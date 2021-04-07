@@ -19,6 +19,8 @@ public class UserDaoDB implements UserDao{
     @Autowired
     JdbcTemplate jdbc;
 
+    private int userConnectedId;
+
     @Override
     @Transactional
     public User addUser(User user) {
@@ -113,6 +115,34 @@ public class UserDaoDB implements UserDao{
                 " where up.Userid=? ;";
         List<Pokemon> pokemons= jdbc.query(sql, new PokemonDaoDB.PokemonMapper(), user.getId());
         return pokemons;
+    }
+
+    @Override
+    public void addPokemonForUser(User user, Pokemon pokemon) {
+        final String sql = "INSERT INTO User_Pokemon (Pokemonid, Userid) VALUES(?,?)";
+        jdbc.update(sql, pokemon.getId(), user.getId());
+
+    }
+
+    @Override
+    public User getUserByEmail(String email) {
+        List<User> users=  getAll();
+        for (int i = 0; i<users.size();i++)
+        {
+            if(users.get(i).getEmail().equals(email))
+                return users.get(i);
+        }
+        return null;
+    }
+
+    @Override
+    public void setUserConnected(int id) {
+        this.userConnectedId=id;
+    }
+
+    @Override
+    public int getUserConnected() {
+        return this.userConnectedId;
     }
 
     @Override

@@ -118,10 +118,24 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
 <div class="container">
     <div class="row m-4 border border-dark rounded bg-light">
+        <div class="col-12 m-1 text-center"
+             th:if="${!Error.equals('')}">
+            <p class="alert alert-danger"
+               th:text="${Error}">Error message</p>
+        </div>
         <div class="row20" >
             <div class="column20" th:each="pokemons : ${pokemon}">
-                <div class="card20">
+                <form action="buy" method="POST">
 
+                    <div class="card20">
+
+                        <label for="pokemonId" class="col-sm-3 col-form-label" hidden>
+                            Name</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="pokemonId" id="pokemonId"
+                                   class="form-control" th:value="${pokemons.id}" hidden />
+
+                        </div>
                             <br />
                             <h3 th:text="${pokemons.name}">Name</h3>
                             <img  th:src="${pokemons.image}"  height="120px"/>
@@ -149,16 +163,14 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                     <h6 th:text="${pokemons.height}+' ' + m"  > height</h6>
                                 </div>
                             </div>
-                    <div class="row">
-                        <div class="col-sm ">
-                        <button type="submit"  th:text="${pokemons.price}" class="btn btn-info"><i class="fa fa-money"></i>Buy for  </button>
+                        <div class="row">
+                            <div class="col-sm ">
+                            <button type="submit"  th:text="${pokemons.price}" class="btn btn-info"><i class="fa fa-money"></i>Buy for  </button>
+                            </div>
                         </div>
+
                     </div>
-
-
-
-
-                </div>
+                </form>
             </div>
         </div>
     </div>
