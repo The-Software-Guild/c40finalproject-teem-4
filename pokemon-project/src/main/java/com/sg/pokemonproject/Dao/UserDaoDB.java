@@ -80,6 +80,9 @@ public class UserDaoDB implements UserDao{
                 user.getEmail(),
                 user.getPassword(),
                 user.getId());
+        final String DELETE_USER_POKE = "DELETE FROM User_Pokemon WHERE Userid = ?";
+        jdbc.update(DELETE_USER_POKE, user.getId());
+        insertUserPokemons(user);
     }
 
     @Override

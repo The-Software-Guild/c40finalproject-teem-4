@@ -34,6 +34,7 @@ public class BattleController {
         battleService.setUser(userId);
         List<Pokemon> userPokemon = battleSelectService.getUserPokemon(userId);
         List<Pokemon> otherPokemon = battleSelectService.getOtherPokemon(userId);
+        model.addAttribute("userId", userId);
         model.addAttribute("userPokemon", userPokemon);
         model.addAttribute("otherPokemon", otherPokemon);
         return "battleSelect";
@@ -41,29 +42,26 @@ public class BattleController {
 
     @PostMapping("battleSelect")
     public String performBattleSelect(HttpServletRequest request) {
-        /*
+
         String uPokeId = request.getParameter("userPokeId");
         String oPokeId = request.getParameter("opponentPokeId");
         battleService.setUserPokemon(Integer.parseInt(uPokeId));
         battleService.setOpponent(Integer.parseInt(oPokeId));
-
+        /*
         Battle battle = new Battle();
         battle.setUserId(battleService.getUser().getId());
         battle.setUserPokemonId(Integer.parseInt(uPokeId));
         battle.setOpponentId(Integer.parseInt(oPokeId));
         battleSelectService.addBattle(battle);*/
-        return "redirect:/battle";///"+userId+"/"+userPokeId+"/"+opponentPokeId;
+        return "redirect:/battle";//Select/"+userId;///"+userId+"/"+userPokeId+"/"+opponentPokeId;
     }
 
-    //@GetMapping("battle")
-    @GetMapping("battle/{userId}/{oppId}")
-    //public String battle(Model model) {
-    public String battle(@PathVariable("userId") int userId, @PathVariable("oppId") int oppId, Model model) {
-        battleService.setUser(1);
-        battleService.setUserPokemon(userId);
-        battleService.setOpponent(oppId);
+    @GetMapping("battle")
+    //@GetMapping("battle/{userId}/{oppId}")
+    public String battle(Model model) {
+    //public String battle(@PathVariable("userId") int userId, @PathVariable("oppId") int oppId, Model model) {
         List<Ability> abilities = battleService.getUserPokemon().getAbilities();
-        //model.addAttribute("user", battleService.getUser());
+        model.addAttribute("user", battleService.getUser());
         model.addAttribute("userAP", battleService.getUserAP());//user's AP starts at 8 for every turn
         model.addAttribute("message", "Choose an ability!");
 
@@ -73,20 +71,18 @@ public class BattleController {
         //set initial health levels to full health
         model.addAttribute("userHP", battleService.getUserMaxHp());
         model.addAttribute("opponentHP", battleService.getOpponentMaxHp());
-        Integer percent = 100;
-        model.addAttribute("userHPpercent", percent);
-        model.addAttribute("opponentHPpercent", percent);
+        model.addAttribute("maxUserHP", battleService.getUserMaxHp());
+        model.addAttribute("maxOppHP", battleService.getOpponentMaxHp());
 
         model.addAttribute("ability1", abilities.get(0));
         model.addAttribute("ability2", abilities.get(1));
-        //model.addAttribute("ability3", abilities.get(2));
-        //model.addAttribute("ability4", abilities.get(3));
         return "battle";
     }
 
     // either find a way to change the message every few seconds or use a button to get to next message
     @GetMapping("battle/attack/{abilityId}")
     public String attack(@PathVariable("abilityId") int abilityId, Model model) {
+        model.addAttribute("user", battleService.getUser());
         model.addAttribute("userPoke", battleService.getUserPokemon());
         model.addAttribute("opponent", battleService.getOpponent());
         List<Ability> abilities = battleService.getUserPokemon().getAbilities();
@@ -97,14 +93,11 @@ public class BattleController {
         model.addAttribute("message", message);
         model.addAttribute("userAP", battleService.getUserAP()); //subtract used AP
 
-        model.addAttribute("userHP", battleService.getUserPokemonHp());
-        int userHPpercent = (int)Math.floor((double)battleService.getUserPokemonHp()/(double)battleService.getUserMaxHp()*100);
-        model.addAttribute("userHPpercent", userHPpercent);
+        model.addAttribute("maxUserHP", battleService.getUserMaxHp());
+        model.addAttribute("maxOppHP", battleService.getOpponentMaxHp());
 
-        //subtract opponent's HP
-        model.addAttribute("opponentHP", battleService.getOpponentHp());
-        double opponentHPpercent = Math.floor((double)battleService.getOpponentHp()/(double)battleService.getOpponentMaxHp()*100.0);
-        model.addAttribute("opponentHPpercent", opponentHPpercent);
+        model.addAttribute("userHP", battleService.getUserPokemonHp());
+        model.addAttribute("opponentHP", battleService.getOpponentHp()); //set opponent HP
 
         return "battle";
     }
@@ -112,6 +105,7 @@ public class BattleController {
     //button to end user turn then display opponent turn messages
     @GetMapping("battle/endTurn")
     public String endTurn(Model model) {
+        model.addAttribute("user", battleService.getUser());
         model.addAttribute("userPoke", battleService.getUserPokemon());
         model.addAttribute("opponent", battleService.getOpponent());
         List<Ability> abilities = battleService.getUserPokemon().getAbilities();
@@ -121,14 +115,12 @@ public class BattleController {
         String gameOverMessage = battleService.endUserTurn();
         List<String> opponentMessages = battleService.opponentTurn();
 
+        model.addAttribute("maxUserHP", battleService.getUserMaxHp());
+        model.addAttribute("maxOppHP", battleService.getOpponentMaxHp());
+
         model.addAttribute("userAP", battleService.getUserAP());//reset user's AP to 8
-        model.addAttribute("opponentHP", battleService.getOpponentHp());
-        double opponentHPpercent = Math.floor((double)battleService.getOpponentHp()/(double)battleService.getOpponentMaxHp()*100.0);
-        model.addAttribute("opponentHPpercent", opponentHPpercent);
-        //subtract user's HP
+        model.addAttribute("opponentHP", battleService.getOpponentHp()); //set User HP
         model.addAttribute("userHP", battleService.getUserPokemonHp());
-        int userHPpercent = (int)Math.floor(battleService.getUserPokemonHp()/battleService.getUserMaxHp()*100);
-        model.addAttribute("userHPpercent", userHPpercent);
 
         //messages from opponent's attacks
         String message = String.join("\n", opponentMessages);
@@ -141,7 +133,7 @@ public class BattleController {
     }
 
     //button to return to battle select page
-    @GetMapping("returnToSelect")
+    @GetMapping("battle/returnToSelect")
     public String returnToSelect() {
         int userId = battleService.getUser().getId();
         return "redirect:/battleSelect/"+userId;
