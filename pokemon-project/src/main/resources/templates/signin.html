@@ -14,10 +14,15 @@
 <body style="margin-top: 120px">
 
     <div class="container">
-        <form class="cssForForm bg-light border border-dark">
+
+        <form class="cssForForm bg-light border border-dark"  action="signin" method="POST">
             <h1 class="text-center">
                 Sign In
             </h1>
+            <div class="text-center"
+                 th:if="${badCredentials}">
+                <p class="alert alert-danger">Email or Password are incorrect</p>
+            </div>
 
             <div class="form-row">
                 <div class="form-group col-md-3" ></div>
@@ -44,11 +49,8 @@
                 <div class="form-group col-md-5" ></div>
                 <div class="form-group" >
                     <button type="submit" class="btn btn-info">Sign In</button>
-                    <div class="popup" th:if="${badCredentials}">
-                        <script>
-                            alert ("Email or Password are incorrect.");
-                        </script>
-                    </div>
+
+
 
                 </div>
             </div>

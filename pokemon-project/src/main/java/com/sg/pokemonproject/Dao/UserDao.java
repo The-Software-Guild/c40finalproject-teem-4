@@ -14,6 +14,10 @@ public interface UserDao {
     public void deleteUser(int id);
 
     public List<Pokemon> getPokemonsForUser(User user);
+    public void addPokemonForUser(User user, Pokemon pokemon);
+    public  User getUserByEmail(String email);
+    public void setUserConnected(int id);
+    public int getUserConnected();
 
     public boolean login(String email, String password);
 

@@ -34,7 +34,7 @@ public class UserCardsController {
 
     @GetMapping("UserCards")
     public String displayCards(Model model) {
-        User user= userDao.getUserById(2);
+        User user = userDao.getUserById(userDao.getUserConnected());
         List<Pokemon> pokemons1 = userDao.getPokemonsForUser(user);
         List<Pokemon> pokemon = new ArrayList<>();
         for (Pokemon pokemon1 : pokemons1) {
