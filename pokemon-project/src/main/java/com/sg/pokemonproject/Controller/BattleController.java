@@ -1,6 +1,8 @@
 package com.sg.pokemonproject.Controller;
 
+import com.sg.pokemonproject.Dao.BattleDao;
 import com.sg.pokemonproject.Entity.Ability;
+import com.sg.pokemonproject.Entity.Battle;
 import com.sg.pokemonproject.Entity.Pokemon;
 import com.sg.pokemonproject.Service.BattleSelectService;
 import com.sg.pokemonproject.Service.BattleService;
@@ -16,64 +18,125 @@ import java.util.List;
 
 @Controller
 public class BattleController {
-    private final BattleService battleService;
-    private final BattleSelectService battleSelect;
-    int AP = 6;
+    @Autowired
+    BattleDao battleDao;
 
     @Autowired
-    public BattleController(BattleService service, BattleSelectService select) {
-        this.battleService = service;
-        this.battleSelect = select;
-    }
+    BattleService battleService;
+
+    @Autowired
+    BattleSelectService battleSelectService;
+
+    int AP = 8;
 
     @GetMapping("battleSelect/{id}")
     public String battleSelect(@PathVariable("id") int userId, Model model) {
-        List<Pokemon> userPokemon = battleSelect.getUserPokemon(userId);
-        List<Pokemon> otherPokemon = battleSelect.getOtherPokemon(userId);
+        battleService.setUser(userId);
+        List<Pokemon> userPokemon = battleSelectService.getUserPokemon(userId);
+        List<Pokemon> otherPokemon = battleSelectService.getOtherPokemon(userId);
         model.addAttribute("userPokemon", userPokemon);
         model.addAttribute("otherPokemon", otherPokemon);
         return "battleSelect";
     }
+
     @PostMapping("battleSelect")
-    public String performBattleSelect(Integer userId, HttpServletRequest request) {
-        String userPokeId = request.getParameter("userPokeId");
-        String opponentPokeId = request.getParameter("opponentPokeId");
-        battleService.setUser(userId);
-        battleService.setUserPokemon(Integer.parseInt(userPokeId));
-        battleService.setOpponent(Integer.parseInt(opponentPokeId));
-        return "redirect:/battle"; //+userId+"/"+userPokeId+"/"+opponentPokeId
+    public String performBattleSelect(HttpServletRequest request) {
+        /*
+        String uPokeId = request.getParameter("userPokeId");
+        String oPokeId = request.getParameter("opponentPokeId");
+        battleService.setUserPokemon(Integer.parseInt(uPokeId));
+        battleService.setOpponent(Integer.parseInt(oPokeId));
+
+        Battle battle = new Battle();
+        battle.setUserId(battleService.getUser().getId());
+        battle.setUserPokemonId(Integer.parseInt(uPokeId));
+        battle.setOpponentId(Integer.parseInt(oPokeId));
+        battleSelectService.addBattle(battle);*/
+        return "redirect:/battle";///"+userId+"/"+userPokeId+"/"+opponentPokeId;
     }
 
-    @GetMapping("battle")
-    ///{userId}/{userPokeId}/{opponentId}
-    public String battle(Integer userId, Integer userPokeId, Integer opponentId, Model model) {
+    //@GetMapping("battle")
+    @GetMapping("battle/{userId}/{oppId}")
+    //public String battle(Model model) {
+    public String battle(@PathVariable("userId") int userId, @PathVariable("oppId") int oppId, Model model) {
+        battleService.setUser(1);
+        battleService.setUserPokemon(userId);
+        battleService.setOpponent(oppId);
         List<Ability> abilities = battleService.getUserPokemon().getAbilities();
-        model.addAttribute("user", battleService.getUser());
+        //model.addAttribute("user", battleService.getUser());
+        model.addAttribute("userAP", battleService.getUserAP());//user's AP starts at 8 for every turn
+        model.addAttribute("message", "Choose an ability!");
+
         model.addAttribute("userPoke", battleService.getUserPokemon());
         model.addAttribute("opponent", battleService.getOpponent());
+
+        //set initial health levels to full health
+        model.addAttribute("userHP", battleService.getUserMaxHp());
+        model.addAttribute("opponentHP", battleService.getOpponentMaxHp());
+        Integer percent = 100;
+        model.addAttribute("userHPpercent", percent);
+        model.addAttribute("opponentHPpercent", percent);
+
         model.addAttribute("ability1", abilities.get(0));
         model.addAttribute("ability2", abilities.get(1));
-        model.addAttribute("ability3", abilities.get(2));
-        model.addAttribute("ability4", abilities.get(3));
+        //model.addAttribute("ability3", abilities.get(2));
+        //model.addAttribute("ability4", abilities.get(3));
         return "battle";
     }
 
     // either find a way to change the message every few seconds or use a button to get to next message
-    @GetMapping("attack/{abilityId}")
+    @GetMapping("battle/attack/{abilityId}")
     public String attack(@PathVariable("abilityId") int abilityId, Model model) {
+        model.addAttribute("userPoke", battleService.getUserPokemon());
+        model.addAttribute("opponent", battleService.getOpponent());
+        List<Ability> abilities = battleService.getUserPokemon().getAbilities();
+        model.addAttribute("ability1", abilities.get(0));
+        model.addAttribute("ability2", abilities.get(1));
+
         String message = battleService.userAttack(abilityId);
         model.addAttribute("message", message);
-        model.addAttribute("userAP", battleService.getUserAP());
+        model.addAttribute("userAP", battleService.getUserAP()); //subtract used AP
+
+        model.addAttribute("userHP", battleService.getUserPokemonHp());
+        int userHPpercent = (int)Math.floor((double)battleService.getUserPokemonHp()/(double)battleService.getUserMaxHp()*100);
+        model.addAttribute("userHPpercent", userHPpercent);
+
+        //subtract opponent's HP
+        model.addAttribute("opponentHP", battleService.getOpponentHp());
+        double opponentHPpercent = Math.floor((double)battleService.getOpponentHp()/(double)battleService.getOpponentMaxHp()*100.0);
+        model.addAttribute("opponentHPpercent", opponentHPpercent);
+
         return "battle";
     }
 
     //button to end user turn then display opponent turn messages
-    @GetMapping("endTurn")
+    @GetMapping("battle/endTurn")
     public String endTurn(Model model) {
-        battleService.endUserTurn();
+        model.addAttribute("userPoke", battleService.getUserPokemon());
+        model.addAttribute("opponent", battleService.getOpponent());
+        List<Ability> abilities = battleService.getUserPokemon().getAbilities();
+        model.addAttribute("ability1", abilities.get(0));
+        model.addAttribute("ability2", abilities.get(1));
+
+        String gameOverMessage = battleService.endUserTurn();
         List<String> opponentMessages = battleService.opponentTurn();
-        model.addAttribute("userAP", battleService.getUserAP());
-        model.addAttribute("opponentMessages", opponentMessages);
+
+        model.addAttribute("userAP", battleService.getUserAP());//reset user's AP to 8
+        model.addAttribute("opponentHP", battleService.getOpponentHp());
+        double opponentHPpercent = Math.floor((double)battleService.getOpponentHp()/(double)battleService.getOpponentMaxHp()*100.0);
+        model.addAttribute("opponentHPpercent", opponentHPpercent);
+        //subtract user's HP
+        model.addAttribute("userHP", battleService.getUserPokemonHp());
+        int userHPpercent = (int)Math.floor(battleService.getUserPokemonHp()/battleService.getUserMaxHp()*100);
+        model.addAttribute("userHPpercent", userHPpercent);
+
+        //messages from opponent's attacks
+        String message = String.join("\n", opponentMessages);
+        if (!gameOverMessage.equals("")) {
+            model.addAttribute("message", gameOverMessage);
+        } else {
+            model.addAttribute("message", message);
+        }
         return "battle";
     }
 

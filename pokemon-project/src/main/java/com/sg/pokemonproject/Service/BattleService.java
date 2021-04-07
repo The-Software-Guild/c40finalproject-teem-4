@@ -24,18 +24,18 @@ public class BattleService {
     @Autowired
     UserDao userDao;
 
-    Integer userAP = 6;
+    Integer userAP = 8;
 
     User user;
     Pokemon userPokemon;
     Pokemon opponent;
-
-    public BattleService() {
-    }
+    int userMaxHp;
+    int opponentMaxHp;
 
     //user has 6 AP at the beginning of their turn and chooses an ability until no AP is left
     //once opponent is at 0 HP, user wins and gains x amount of coins and adds the opponent Pokemon into their collection
     //if opponent wins, user gets neither money nor the pokemon
+
 
     public User getUser() {
         return user;
@@ -48,14 +48,22 @@ public class BattleService {
         return userPokemon;
     }
     public void setUserPokemon(int pokeId) {
+        this.userMaxHp = pokeDao.getPokemonById(pokeId).getHealth();
         this.userPokemon = pokeDao.getPokemonById(pokeId);
+    }
+    public int getUserPokemonHp() {
+        return userPokemon.getHealth();
     }
 
     public Pokemon getOpponent() {
         return opponent;
     }
     public void setOpponent(int opponentId) {
+        this.opponentMaxHp = pokeDao.getPokemonById(opponentId).getHealth();
         this.opponent = pokeDao.getPokemonById(opponentId);
+    }
+    public int getOpponentHp() {
+        return opponent.getHealth();
     }
 
     public int getUserAP() {
@@ -65,8 +73,18 @@ public class BattleService {
         this.userAP = newAP;
     }
 
+    public int getUserMaxHp() {
+        return userMaxHp;
+    }
+    public int getOpponentMaxHp() {
+        return opponentMaxHp;
+    }
+
     public String userAttack(int chosenAbilityId) {
-        if (userPokemon.getHealth() <= 0) {
+        if (this.getOpponentHp() <= 0) {
+            return "Game over! Return to the select page to battle another Pokemon!";
+        }
+        else if (userPokemon.getHealth() <= 0) {
             return userPokemon.getName() + " has fainted! Return to select page to battle again.";
         }
         Ability chosenAbility = abilityDao.getAbilityById(chosenAbilityId);
@@ -74,6 +92,7 @@ public class BattleService {
             return "Not enough AP!";
         }
         String message = "";
+        message += userPokemon.getName()+" uses "+chosenAbility.getName()+"!\n";
         Random rand = new Random();
         int critChance = rand.nextInt(10);
         int atk = chosenAbility.getAttack();
@@ -101,12 +120,16 @@ public class BattleService {
         return message;
     }
 
-    public void endUserTurn() {
-        this.setUserAP(6);
+    public String endUserTurn() {
+        this.setUserAP(8);
+        if (this.getOpponentHp() <= 0) {
+            return "Game over! Return to the select page to battle another Pokemon!";
+        }
+        return "";
     }
 
     public List<String> opponentTurn() {
-        int opponentAP = 6;
+        int opponentAP = 8;
         List<String> opponentTurnMessages = new ArrayList<>();
         String opponentName = opponent.getName();
         String userName = userPokemon.getName();

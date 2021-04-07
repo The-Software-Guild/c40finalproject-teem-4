@@ -1,7 +1,9 @@
 package com.sg.pokemonproject.Service;
 
+import com.sg.pokemonproject.Dao.BattleDao;
 import com.sg.pokemonproject.Dao.PokemonDao;
 import com.sg.pokemonproject.Dao.UserDao;
+import com.sg.pokemonproject.Entity.Battle;
 import com.sg.pokemonproject.Entity.Pokemon;
 import com.sg.pokemonproject.Entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +15,17 @@ import java.util.List;
 @Service
 public class BattleSelectService {
     @Autowired
+    BattleDao battleDao;
+
+    @Autowired
     PokemonDao pokeDao;
 
     @Autowired
     UserDao userDao;
+
+    public void addBattle(Battle battle) {
+        battleDao.addBattle(battle);
+    }
 
     public List<Pokemon> getUserPokemon(int userId) {
         User user = userDao.getUserById(userId);
@@ -25,10 +34,14 @@ public class BattleSelectService {
     public List<Pokemon> getOtherPokemon(int userId) {
         User user = userDao.getUserById(userId);
         List<Pokemon> userPoke = userDao.getPokemonsForUser(user);
+        List<String> userNames = new ArrayList<>();
+        for (Pokemon pokemon : userPoke) {
+            userNames.add(pokemon.getName());
+        }
         List<Pokemon> allPoke = pokeDao.getAll();
         List<Pokemon> result = new ArrayList<>();
         for (Pokemon pokemon : allPoke) {
-            if (!userPoke.contains(pokemon)) {
+            if (!userNames.contains(pokemon.getName())) {
                 result.add(pokemon);
             }
         }

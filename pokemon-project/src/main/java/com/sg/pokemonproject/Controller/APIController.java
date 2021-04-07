@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-
+/*
 @RestController
 @RequestMapping("/")
 public class APIController {
@@ -19,6 +19,7 @@ public class APIController {
         PokemonInformation pokemonInformation = restTemplate.getForObject(
                 "https://pokeapi.co/api/v2/pokemon/" + pokemonId, PokemonInformation.class
         );
-        return new Pokemon(pokemonId, pokemonInformation.getName(), );
+        return null;
+        //return new Pokemon(pokemonId, pokemonInformation.getName(), );
     }
-}
+}*/
