@@ -10,10 +10,7 @@ import org.springframework.web.client.RestTemplate;
 /*
 @RestController
 @RequestMapping("/")
-
- */
 public class APIController {
-    /*
     @Autowired
     private RestTemplate restTemplate;
 
@@ -24,5 +21,4 @@ public class APIController {
         );
         return new Pokemon(pokemonId, pokemonInformation.getName(), );
     }
-    */
-}
+}*/

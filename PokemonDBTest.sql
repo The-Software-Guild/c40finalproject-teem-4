@@ -56,3 +56,10 @@ CREATE TABLE `Poke_Ability` (
   foreign key(`Abilityid`) REFERENCES `Ability`(`Abilityid`)
 );
 
+CREATE TABLE `Battle` (
+	`Battleid` int auto_increment Not Null,
+	`Userid` INT,
+    `Opponentid` INT,
+    `UserPokemonid` INT,
+    primary key(`Battleid`)
+);
