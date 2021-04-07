@@ -19,7 +19,6 @@ public class APIController {
         PokemonInformation pokemonInformation = restTemplate.getForObject(
                 "https://pokeapi.co/api/v2/pokemon/" + pokemonId, PokemonInformation.class
         );
-        return null;
-        //return new Pokemon(pokemonId, pokemonInformation.getName(), );
+        return new Pokemon(pokemonId, pokemonInformation.getName(), );
     }
 }*/
