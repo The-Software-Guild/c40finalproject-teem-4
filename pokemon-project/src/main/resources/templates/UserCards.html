@@ -120,8 +120,9 @@ body {font-family: Arial, Helvetica, sans-serif;}
     <div class="row m-4 border border-dark rounded bg-light">
         <div class="row20" >
             <div class="column20" th:each="pokemons : ${pokemon}">
-                <div class="card20">
-
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
                             <br />
                             <h3 th:text="${pokemons.name}">Name</h3>
                             <img  th:src="${pokemons.image}"  height="120px"/>
@@ -149,15 +150,20 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                     <h6 th:text="${pokemons.height}+' ' + m"  > height</h6>
                                 </div>
                             </div>
-                    <div class="row">
-                        <div class="col-sm ">
-                        <button type="submit"  th:text="${pokemons.price}" class="btn btn-info"><i class="fa fa-money"></i>Buy for  </button>
+
+                        </div>
+                        <div class="flip-card-back">
+                            <br>
+                            <br>
+                            <h4>Type </h4>
+                            <h6 th:text="${pokemons.type.name}">Type</h6>
+                            <br>
+                            <h4>Abilities </h4>
+                            <div  th:each="ability : ${pokemons.abilities}">
+                            <h6 th:text="${ability.name}">ability</h6>
+                            </div>
                         </div>
                     </div>
-
-
-
-
                 </div>
             </div>
         </div>
