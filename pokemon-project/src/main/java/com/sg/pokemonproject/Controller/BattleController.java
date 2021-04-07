@@ -29,12 +29,10 @@ public class BattleController {
 
     int AP = 8;
 
-    @GetMapping("battleSelect/{id}")
-    public String battleSelect(@PathVariable("id") int userId, Model model) {
-        battleService.setUser(userId);
-        List<Pokemon> userPokemon = battleSelectService.getUserPokemon(userId);
-        List<Pokemon> otherPokemon = battleSelectService.getOtherPokemon(userId);
-        model.addAttribute("userId", userId);
+    @GetMapping("battleSelect")
+    public String battleSelect(Model model) {
+        List<Pokemon> userPokemon = battleSelectService.getUserPokemon();
+        List<Pokemon> otherPokemon = battleSelectService.getOtherPokemon();
         model.addAttribute("userPokemon", userPokemon);
         model.addAttribute("otherPokemon", otherPokemon);
         return "battleSelect";
@@ -42,7 +40,6 @@ public class BattleController {
 
     @PostMapping("battleSelect")
     public String performBattleSelect(HttpServletRequest request) {
-
         String uPokeId = request.getParameter("userPokeId");
         String oPokeId = request.getParameter("opponentPokeId");
         battleService.setUserPokemon(Integer.parseInt(uPokeId));
@@ -61,7 +58,6 @@ public class BattleController {
     public String battle(Model model) {
     //public String battle(@PathVariable("userId") int userId, @PathVariable("oppId") int oppId, Model model) {
         List<Ability> abilities = battleService.getUserPokemon().getAbilities();
-        model.addAttribute("user", battleService.getUser());
         model.addAttribute("userAP", battleService.getUserAP());//user's AP starts at 8 for every turn
         model.addAttribute("message", "Choose an ability!");
 
@@ -82,7 +78,6 @@ public class BattleController {
     // either find a way to change the message every few seconds or use a button to get to next message
     @GetMapping("battle/attack/{abilityId}")
     public String attack(@PathVariable("abilityId") int abilityId, Model model) {
-        model.addAttribute("user", battleService.getUser());
         model.addAttribute("userPoke", battleService.getUserPokemon());
         model.addAttribute("opponent", battleService.getOpponent());
         List<Ability> abilities = battleService.getUserPokemon().getAbilities();
@@ -105,7 +100,6 @@ public class BattleController {
     //button to end user turn then display opponent turn messages
     @GetMapping("battle/endTurn")
     public String endTurn(Model model) {
-        model.addAttribute("user", battleService.getUser());
         model.addAttribute("userPoke", battleService.getUserPokemon());
         model.addAttribute("opponent", battleService.getOpponent());
         List<Ability> abilities = battleService.getUserPokemon().getAbilities();
@@ -135,7 +129,6 @@ public class BattleController {
     //button to return to battle select page
     @GetMapping("battle/returnToSelect")
     public String returnToSelect() {
-        int userId = battleService.getUser().getId();
-        return "redirect:/battleSelect/"+userId;
+        return "redirect:/battleSelect";
     }
 }
