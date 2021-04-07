@@ -27,12 +27,12 @@ public class BattleSelectService {
         battleDao.addBattle(battle);
     }
 
-    public List<Pokemon> getUserPokemon(int userId) {
-        User user = userDao.getUserById(userId);
+    public List<Pokemon> getUserPokemon() {
+        User user = userDao.getUserById(userDao.getUserConnected());
         return userDao.getPokemonsForUser(user);
     }
-    public List<Pokemon> getOtherPokemon(int userId) {
-        User user = userDao.getUserById(userId);
+    public List<Pokemon> getOtherPokemon() {
+        User user = userDao.getUserById(userDao.getUserConnected());
         List<Pokemon> userPoke = userDao.getPokemonsForUser(user);
         List<String> userNames = new ArrayList<>();
         for (Pokemon pokemon : userPoke) {
