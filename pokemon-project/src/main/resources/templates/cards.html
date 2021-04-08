@@ -125,7 +125,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
         </div>
         <div class="row20" >
             <div class="column20" th:each="pokemons : ${pokemon}">
-                <form action="buy" method="POST">
+                <form action="buy" method="POST" class="p-2">
 
                     <div class="card20">
 
@@ -165,7 +165,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                             </div>
                         <div class="row">
                             <div class="col-sm ">
-                            <button type="submit"  th:text="${pokemons.price}" class="btn btn-info"><i class="fa fa-money"></i>Buy for  </button>
+                            <button type="submit"  th:text="${pokemons.price}" class="btn btn-info mb-3"><i class="fa fa-money"></i>Buy for  </button>
                             </div>
                         </div>
 
