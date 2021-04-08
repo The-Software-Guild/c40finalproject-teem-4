@@ -34,6 +34,7 @@ public class BattleService {
     //user has 6 AP at the beginning of their turn and chooses an ability until no AP is left
     //once opponent is at 0 HP, user wins and gains x amount of coins and adds the opponent Pokemon into their collection
     //if opponent wins, user gets neither money nor the pokemon
+
     public Pokemon getUserPokemon() {
         return userPokemon;
     }

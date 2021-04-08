@@ -18,8 +18,8 @@ import java.util.List;
 
 @Controller
 public class BattleController {
-    @Autowired
-    BattleDao battleDao;
+    /*@Autowired
+    BattleDao battleDao;*/
 
     @Autowired
     BattleService battleService;
@@ -27,10 +27,14 @@ public class BattleController {
     @Autowired
     BattleSelectService battleSelectService;
 
-    int AP = 8;
+    private int AP = 8;
 
     @GetMapping("battleSelect")
     public String battleSelect(Model model) {
+        if (battleSelectService.getUserId() == 0) {
+            return "redirect:/signin";
+        }
+        //retrieve user's pokemon and pokemon available to battle
         List<Pokemon> userPokemon = battleSelectService.getUserPokemon();
         List<Pokemon> otherPokemon = battleSelectService.getOtherPokemon();
         model.addAttribute("userPokemon", userPokemon);
@@ -40,6 +44,9 @@ public class BattleController {
 
     @PostMapping("battleSelect")
     public String performBattleSelect(HttpServletRequest request) {
+        if (battleSelectService.getUserId() == 0) {
+            return "redirect:/signin";
+        }
         String uPokeId = request.getParameter("userPokeId");
         String oPokeId = request.getParameter("opponentPokeId");
         battleService.setUserPokemon(Integer.parseInt(uPokeId));
@@ -57,6 +64,9 @@ public class BattleController {
     //@GetMapping("battle/{userId}/{oppId}")
     public String battle(Model model) {
     //public String battle(@PathVariable("userId") int userId, @PathVariable("oppId") int oppId, Model model) {
+        if (battleSelectService.getUserId() == 0) {
+            return "redirect:/signin";
+        }
         List<Ability> abilities = battleService.getUserPokemon().getAbilities();
         model.addAttribute("userAP", battleService.getUserAP());//user's AP starts at 8 for every turn
         model.addAttribute("message", "Choose an ability!");
@@ -75,9 +85,11 @@ public class BattleController {
         return "battle";
     }
 
-    // either find a way to change the message every few seconds or use a button to get to next message
     @GetMapping("battle/attack/{abilityId}")
     public String attack(@PathVariable("abilityId") int abilityId, Model model) {
+        if (battleSelectService.getUserId() == 0) {
+            return "redirect:/signin";
+        }
         model.addAttribute("userPoke", battleService.getUserPokemon());
         model.addAttribute("opponent", battleService.getOpponent());
         List<Ability> abilities = battleService.getUserPokemon().getAbilities();
@@ -100,6 +112,9 @@ public class BattleController {
     //button to end user turn then display opponent turn messages
     @GetMapping("battle/endTurn")
     public String endTurn(Model model) {
+        if (battleSelectService.getUserId() == 0) {
+            return "redirect:/signin";
+        }
         model.addAttribute("userPoke", battleService.getUserPokemon());
         model.addAttribute("opponent", battleService.getOpponent());
         List<Ability> abilities = battleService.getUserPokemon().getAbilities();
@@ -124,11 +139,5 @@ public class BattleController {
             model.addAttribute("message", message);
         }
         return "battle";
-    }
-
-    //button to return to battle select page
-    @GetMapping("battle/returnToSelect")
-    public String returnToSelect() {
-        return "redirect:/battleSelect";
     }
 }
