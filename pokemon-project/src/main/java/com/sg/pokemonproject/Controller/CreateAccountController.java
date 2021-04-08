@@ -52,6 +52,7 @@ public class CreateAccountController {
 
             userDao.addUser(user);
             userDao.setUserConnected(user.getId());
+
             return "redirect:/cards";
         }
     }
