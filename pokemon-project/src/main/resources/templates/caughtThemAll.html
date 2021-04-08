@@ -117,54 +117,15 @@ body {font-family: Arial, Helvetica, sans-serif;}
 </nav>
 <div class="container">
     <div class="text-center m-3">
-        <span class="h3">Send a Pokemon into Battle!</span>
+        <span class="h1">Congratulations! You caught them all!</span>
     </div>
-    <!--  action="startBattle" method="POST" -->
     <div class="text-center">
-        <form action="/battleSelect" method="POST">
-            <div class="row justify-content-md-center">
-                <div class="col-3">
-                    <div class="form-group border border-primary rounded m-2">
-                        <div class="m-2">
-                            <label for="uPokemon" class="col-10 col-form-label-lg">
-                                Select your Pokemon</label>
-                            <div class="col">
-                                <select id="uPokemon" name="userPokeId" class="form-control" >
-                                    <option th:each="uPoke : ${userPokemon}"
-                                            th:value="${uPoke.id}"
-                                            th:text="${uPoke.name}">
-                                        Pokemon Name</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="form-group border border-primary rounded m-2">
-                        <div class="m-2">
-                            <label for="opponent" class="col-10 col-form-label-lg">
-                                Select your Opponent</label>
-                            <div class="col">
-                                <select id="opponent" name="opponentPokeId" class="form-control" >
-                                    <option th:each="opponent : ${otherPokemon}"
-                                            th:value="${opponent.id}"
-                                            th:text="${opponent.name}">
-                                        Opponent Name</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--<input type="hidden" name="id" th:value="${org.id}"/>-->
-            <button type="submit" class="btn btn-primary btn-lg m-2">Start Battle!</button>
-            <!--<a type="button" class="btn btn-primary btn-lg m-2" href="#" th:href="@{/startBattle/{userPokeId}/{opponentPokeId}(userPokeId=${uPokeId},opponentPokeId=${oPokeId})}">Start Battle!</a>-->
-        </form>
+        <audio controls="controls" src="./audio/pokemonsong.mp3">
+            Your browser does not support the HTML5 Audio element.
+        </audio>
     </div>
-    <div class="row text-center">
-        <div class="col">
-        <img src="https://gifimage.net/wp-content/uploads/2018/04/pokemon-pixel-gif-10.gif" class="img-fluid" alt="gif">
-        </div>
+    <div class="text-center">
+        <img src="https://i.pinimg.com/originals/72/50/94/72509461a6b249869b84a653b4294af3.gif" class="img-fluid" alt="gif">
     </div>
 </div>
 <!-- Optional JavaScript -->
