@@ -1,6 +1,12 @@
 package com.sg.pokemonproject.models;
 
 public class PokemonInformation {
+    private int id;
+    private String name;
+    private int health;
+    private double weight;
+    private double height;
+    private Sprites sprites;
 
     public int getId() {
         return id;
@@ -49,11 +55,4 @@ public class PokemonInformation {
     public void setSprites(Sprites sprites) {
         this.sprites = sprites;
     }
-
-    private int id;
-    private String name;
-    private int health;
-    private double weight;
-    private double height;
-    private Sprites sprites;
 }
