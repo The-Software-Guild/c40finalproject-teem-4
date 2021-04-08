@@ -36,6 +36,11 @@ public class CardsController {
 
     @GetMapping("cards")
     public String displayCards(Model model) {
+        System.out.println(userDao.getUserConnected());
+        if(userDao.getUserConnected() == 0)
+        {
+            return "redirect:/signin";
+        }
 
         model.addAttribute("Error", Error);
         List<Pokemon> pokemon = pokemonDao.getAll();
@@ -60,27 +65,30 @@ public class CardsController {
     @PostMapping("buy")
     public String buy(int pokemonId) {
         Error ="";
-        User user = userDao.getUserById(userDao.getUserConnected());
-        //User user = userDao.getUserById(2);
-        Pokemon pokemon = pokemonDao.getPokemonById(pokemonId);
-
-        if(user.getMoney()-pokemon.getPrice()<0)
+        System.out.println(userDao.getUserConnected());
+        if(userDao.getUserConnected() == 0)
         {
-            Error =" You don't have enough money";
+            return "redirect:/signin";
         }
-        else if (exist(user.getPokemons(),pokemon))
-            {
-                Error +=" You already have this Pokemon : "+pokemon.getName().toUpperCase();
-            }
-            else {
-                Error ="";
+        else {
+            User user = userDao.getUserById(userDao.getUserConnected());
+
+            Pokemon pokemon = pokemonDao.getPokemonById(pokemonId);
+
+            if (user.getMoney() - pokemon.getPrice() < 0) {
+                Error = " You don't have enough money";
+            } else if (exist(user.getPokemons(), pokemon)) {
+                Error += " You already have this Pokemon : " + pokemon.getName().toUpperCase();
+            } else {
+                Error = "";
                 user.setMoney(user.getMoney() - pokemon.getPrice());
                 userDao.updateUser(user);
 
                 userDao.addPokemonForUser(user, pokemon);
             }
 
-        return "redirect:/cards";
+            return "redirect:/cards";
+        }
     }
 
 
