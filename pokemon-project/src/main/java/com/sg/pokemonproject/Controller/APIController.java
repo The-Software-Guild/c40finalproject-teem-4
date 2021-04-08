@@ -7,20 +7,17 @@ import com.sg.pokemonproject.Entity.Ability;
 import com.sg.pokemonproject.Entity.Pokemon;
 import com.sg.pokemonproject.Entity.Type;
 import com.sg.pokemonproject.models.Abilities;
-import com.sg.pokemonproject.models.JsonAbility;
 import com.sg.pokemonproject.models.PokemonInformation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController
-@RequestMapping("/")
+@Controller
+//@RequestMapping("/")
 public class APIController {
 
     @Autowired
@@ -35,14 +32,12 @@ public class APIController {
     @Autowired
     PokemonDao pokemonDao;
 
-    String api_url = "https://pokeapi.co/api/v2/pokemon";
+    String api_url = "https://pokeapi.co/api/v2/pokemon/";
 
-    // Just using dummy values for fields not coming from the API for now
-    @GetMapping("/pokemon/{id}")
-    public void consumePokemon(@PathVariable Integer id){
+    @GetMapping("/{id}")
+    public String consumePokemon(@PathVariable Integer id){
 
         // 39 = jigglypuff
-
         if(pokemonDao.getAll().isEmpty()){
             String url = api_url + "/{id}";
 
@@ -54,13 +49,15 @@ public class APIController {
                 type = typeDao.addType(type);
 
                 List<Ability> abilityList = new ArrayList<>();
+                int adjustAttackAndAP = 2;
                 for(Abilities abilities : pokemonInformation.getAbilities()){
                     Ability ability = new Ability();
                     ability.setName(abilities.getAbility().getName());
-                    ability.setAP(8);
-                    ability.setAttack(2);
+                    ability.setAP(adjustAttackAndAP); //2 and then 4
+                    ability.setAttack(adjustAttackAndAP); // 2 and then 4
                     ability = abilityDao.addAbility(ability);
                     abilityList.add(ability);
+                    adjustAttackAndAP += 2;
                 }
 
                 Pokemon pokemon = new Pokemon();
@@ -74,10 +71,10 @@ public class APIController {
                 pokemon.setAbilities(abilityList);
 
                 pokemonDao.addPokemon(pokemon);
-                id+=3; // getting every fourth pokemon for now since 2nd and 3rd are just different evolutions of the same Pokemon
+                id+=3; // getting every third pokemon for now since 2nd and 3rd are just different evolutions of the same Pokemon
             }
         }
-
+        return "home";
     }
 
 }
