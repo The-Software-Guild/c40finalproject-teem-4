@@ -40,7 +40,7 @@ public class APIController {
     public void consumePokemon(@PathVariable Integer id){
 
         // 39 = jigglypuff
-        
+
 
         String url = api_url + "/{id}";
 
