@@ -22,8 +22,6 @@ public class SignInController {
        return  "signin";
     }
 
-
-
     @PostMapping("signin")
     public String SignIn(String email, String password, Model model){
 
