@@ -39,9 +39,12 @@ public class APIController {
     @GetMapping("/pokemon/{id}")
     public void consumePokemon(@PathVariable Integer id){
 
+        // 39 = jigglypuff
+        
+
         String url = api_url + "/{id}";
 
-        while(id < 29){
+        while(id < 62){
             PokemonInformation pokemonInformation = restTemplate.getForObject(url, PokemonInformation.class, id);
 
             Type type = new Type();
@@ -62,7 +65,8 @@ public class APIController {
             pokemon.setWeight(pokemonInformation.getWeight());
             pokemon.setHeight(pokemonInformation.getHeight());
             pokemon.setImage(pokemonInformation.getSprites().getOther().getOfficialArtwork().getFront_default());
-            pokemon.setPrice(20);
+            // Initialize each pokemon @ 10 for new user
+            pokemon.setPrice(10);
             pokemon.setType(type);
             pokemon.setAbilities(abilities);
 
