@@ -34,7 +34,7 @@ public class APIController {
 
     String api_url = "https://pokeapi.co/api/v2/pokemon/";
 
-    @GetMapping("/{id}")
+    /*@GetMapping("/{id}")
     public String consumePokemon(@PathVariable Integer id){
 
         // 39 = jigglypuff
@@ -66,7 +66,7 @@ public class APIController {
                 pokemon.setWeight(pokemonInformation.getWeight());
                 pokemon.setHeight(pokemonInformation.getHeight());
                 pokemon.setImage(pokemonInformation.getSprites().getOther().getOfficialArtwork().getFront_default());
-                pokemon.setPrice(20);
+                pokemon.setPrice(pokemonInformation.getHeight() % 4 * 20);
                 pokemon.setType(type);
                 pokemon.setAbilities(abilityList);
 
@@ -74,7 +74,7 @@ public class APIController {
                 id+=3; // getting every third pokemon for now since 2nd and 3rd are just different evolutions of the same Pokemon
             }
         }
-        return "home";
-    }
+        return "signin";
+    }*/
 
 }
