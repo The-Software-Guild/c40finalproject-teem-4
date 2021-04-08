@@ -47,13 +47,13 @@ public class CreateAccountController {
             user.setLastName(lastName);
             user.setEmail(email);
             user.setPassword(password);
-            user.setMoney(10);
+            user.setMoney(40);
             user.setPokemons(null);
 
             userDao.addUser(user);
             userDao.setUserConnected(user.getId());
 
-            return "redirect:/cards";
+            return "redirect:/home";
         }
     }
 }

@@ -36,16 +36,17 @@ public class CardsController {
 
     @GetMapping("cards")
     public String displayCards(Model model) {
-        System.out.println(userDao.getUserConnected());
         if(userDao.getUserConnected() == 0)
         {
             return "redirect:/signin";
         }
+        double money = userDao.getUserById(userDao.getUserConnected()).getMoney();
 
-        model.addAttribute("Error", Error);
+        model.addAttribute("money", money);
         List<Pokemon> pokemon = pokemonDao.getAll();
         List<Type> type = typeDao.getAll();
         List<Ability> abilities = abilityDao.getAll();
+        model.addAttribute("Error", Error);
         model.addAttribute("pokemon", pokemon);
         model.addAttribute("type", type);
         model.addAttribute("abilities", abilities);
