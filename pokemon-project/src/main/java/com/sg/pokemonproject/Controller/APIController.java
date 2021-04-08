@@ -6,6 +6,8 @@ import com.sg.pokemonproject.Dao.TypeDao;
 import com.sg.pokemonproject.Entity.Ability;
 import com.sg.pokemonproject.Entity.Pokemon;
 import com.sg.pokemonproject.Entity.Type;
+import com.sg.pokemonproject.models.Abilities;
+import com.sg.pokemonproject.models.JsonAbility;
 import com.sg.pokemonproject.models.PokemonInformation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,38 +43,41 @@ public class APIController {
 
         // 39 = jigglypuff
 
+        if(pokemonDao.getAll().isEmpty()){
+            String url = api_url + "/{id}";
 
-        String url = api_url + "/{id}";
+            while(id < 62){
+                PokemonInformation pokemonInformation = restTemplate.getForObject(url, PokemonInformation.class, id);
 
-        while(id < 62){
-            PokemonInformation pokemonInformation = restTemplate.getForObject(url, PokemonInformation.class, id);
+                Type type = new Type();
+                type.setName(pokemonInformation.getTypes().get(0).getType().getName());
+                type = typeDao.addType(type);
 
-            Type type = new Type();
-            type.setName("Rain");
-            type = typeDao.addType(type);
+                List<Ability> abilityList = new ArrayList<>();
+                for(Abilities abilities : pokemonInformation.getAbilities()){
+                    Ability ability = new Ability();
+                    ability.setName(abilities.getAbility().getName());
+                    ability.setAP(8);
+                    ability.setAttack(2);
+                    ability = abilityDao.addAbility(ability);
+                    abilityList.add(ability);
+                }
 
-            List<Ability> abilities = new ArrayList<>();
-            Ability ability = new Ability();
-            ability.setAP(10);
-            ability.setAttack(5);
-            ability.setName("Stab");
-            ability = abilityDao.addAbility(ability);
-            abilities.add(ability);
+                Pokemon pokemon = new Pokemon();
+                pokemon.setName(pokemonInformation.getName());
+                pokemon.setHealth(20);
+                pokemon.setWeight(pokemonInformation.getWeight());
+                pokemon.setHeight(pokemonInformation.getHeight());
+                pokemon.setImage(pokemonInformation.getSprites().getOther().getOfficialArtwork().getFront_default());
+                pokemon.setPrice(20);
+                pokemon.setType(type);
+                pokemon.setAbilities(abilityList);
 
-            Pokemon pokemon = new Pokemon();
-            pokemon.setName(pokemonInformation.getName());
-            pokemon.setHealth(20);
-            pokemon.setWeight(pokemonInformation.getWeight());
-            pokemon.setHeight(pokemonInformation.getHeight());
-            pokemon.setImage(pokemonInformation.getSprites().getOther().getOfficialArtwork().getFront_default());
-            // Initialize each pokemon @ 10 for new user
-            pokemon.setPrice(10);
-            pokemon.setType(type);
-            pokemon.setAbilities(abilities);
-
-            pokemonDao.addPokemon(pokemon);
-            id+=3; // getting every fourth pokemon for now since 2nd and 3rd are just different evolutions of the same Pokemon
+                pokemonDao.addPokemon(pokemon);
+                id+=3; // getting every fourth pokemon for now since 2nd and 3rd are just different evolutions of the same Pokemon
+            }
         }
+
     }
 
 }
