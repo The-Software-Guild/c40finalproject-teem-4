@@ -14,8 +14,8 @@ import java.util.List;
 
 @Service
 public class BattleSelectService {
-    @Autowired
-    BattleDao battleDao;
+    /*@Autowired
+    BattleDao battleDao;*/
 
     @Autowired
     PokemonDao pokeDao;
@@ -23,8 +23,12 @@ public class BattleSelectService {
     @Autowired
     UserDao userDao;
 
-    public void addBattle(Battle battle) {
+    /*public void addBattle(Battle battle) {
         battleDao.addBattle(battle);
+    }*/
+
+    public int getUserId() {
+        return userDao.getUserConnected();
     }
 
     public List<Pokemon> getUserPokemon() {
