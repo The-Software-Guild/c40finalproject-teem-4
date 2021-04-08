@@ -1,7 +1,9 @@
 package com.sg.pokemonproject.Dao;
 
 import com.sg.pokemonproject.Entity.Ability;
+import com.sg.pokemonproject.Entity.Type;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -20,14 +22,27 @@ public class AbilityDaoDB implements AbilityDao {
     @Transactional
     @Override
     public Ability addAbility(Ability ability) {
-        final String sql = "Insert into Ability(Name, AP, Attack) Values(?,?,?)";
-        jdbc.update(sql, ability.getName(), ability.getAP(), ability.getAttack());
+        Ability fromDBAbility = new Ability();
+        try{
+            final String SELECT_IF_EXISTS = "SELECT * FROM ability WHERE `Name` = ?";
+            fromDBAbility = jdbc.queryForObject(SELECT_IF_EXISTS, new AbilityMapper(), ability.getName());
+        } catch(DataAccessException ex){
+            fromDBAbility = null;
+        }
 
+        if(fromDBAbility == null){
+            final String sql = "Insert into Ability(Name, AP, Attack) Values(?,?,?)";
+            jdbc.update(sql, ability.getName(), ability.getAP(), ability.getAttack());
 
-        int newId = jdbc.queryForObject("Select Last_Insert_Id()", Integer.class);
-        ability.setId(newId);
+            int newId = jdbc.queryForObject("Select Last_Insert_Id()", Integer.class);
+            ability.setId(newId);
 
-        return ability;
+            return ability;
+        }
+        else{
+            return fromDBAbility;
+        }
+
     }
 
     @Override
