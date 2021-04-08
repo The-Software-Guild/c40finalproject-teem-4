@@ -7,7 +7,6 @@ import com.sg.pokemonproject.Entity.Ability;
 import com.sg.pokemonproject.Entity.Pokemon;
 import com.sg.pokemonproject.Entity.Type;
 import com.sg.pokemonproject.models.Abilities;
-import com.sg.pokemonproject.models.JsonAbility;
 import com.sg.pokemonproject.models.PokemonInformation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -50,13 +49,15 @@ public class APIController {
                 type = typeDao.addType(type);
 
                 List<Ability> abilityList = new ArrayList<>();
+                int adjustAttackAndAP = 2;
                 for(Abilities abilities : pokemonInformation.getAbilities()){
                     Ability ability = new Ability();
                     ability.setName(abilities.getAbility().getName());
-                    ability.setAP(8); //2 and then 4
-                    ability.setAttack(2); // 2 and then 4
+                    ability.setAP(adjustAttackAndAP); //2 and then 4
+                    ability.setAttack(adjustAttackAndAP); // 2 and then 4
                     ability = abilityDao.addAbility(ability);
                     abilityList.add(ability);
+                    adjustAttackAndAP += 2;
                 }
 
                 Pokemon pokemon = new Pokemon();
@@ -70,7 +71,7 @@ public class APIController {
                 pokemon.setAbilities(abilityList);
 
                 pokemonDao.addPokemon(pokemon);
-                id+=3; // getting every fourth pokemon for now since 2nd and 3rd are just different evolutions of the same Pokemon
+                id+=3; // getting every third pokemon for now since 2nd and 3rd are just different evolutions of the same Pokemon
             }
         }
         return "home";
