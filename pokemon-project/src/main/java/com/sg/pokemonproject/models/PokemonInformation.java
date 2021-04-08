@@ -1,5 +1,7 @@
 package com.sg.pokemonproject.models;
 
+import java.util.List;
+
 public class PokemonInformation {
     private int id;
     private String name;
@@ -7,6 +9,24 @@ public class PokemonInformation {
     private double weight;
     private double height;
     private Sprites sprites;
+    private List<Abilities> abilities;
+    private List<Types> types;
+
+    public List<Types> getTypes() {
+        return types;
+    }
+
+    public void setTypes(List<Types> types) {
+        this.types = types;
+    }
+
+    public List<Abilities> getAbilities() {
+        return abilities;
+    }
+
+    public void setAbilities(List<Abilities> abilities) {
+        this.abilities = abilities;
+    }
 
     public int getId() {
         return id;
