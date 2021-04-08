@@ -19,7 +19,6 @@ public class SignInController {
 
     @GetMapping("signin")
     public String addUser( Model model){
-
        return  "signin";
     }
 

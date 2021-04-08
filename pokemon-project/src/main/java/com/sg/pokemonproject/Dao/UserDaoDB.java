@@ -19,7 +19,7 @@ public class UserDaoDB implements UserDao{
     @Autowired
     JdbcTemplate jdbc;
 
-    private int userConnectedId;
+    private int userConnectedId = 0;
 
     @Override
     @Transactional
