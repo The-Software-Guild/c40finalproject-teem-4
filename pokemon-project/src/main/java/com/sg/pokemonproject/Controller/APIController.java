@@ -67,7 +67,7 @@ public class APIController {
             pokemon.setAbilities(abilities);
 
             pokemonDao.addPokemon(pokemon);
-            id+=3;
+            id+=3; // getting every fourth pokemon for now since 2nd and 3rd are just different evolutions of the same Pokemon
         }
     }
 
