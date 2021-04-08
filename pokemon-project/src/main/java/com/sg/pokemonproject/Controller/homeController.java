@@ -65,7 +65,7 @@ public class homeController {
                 pokemon.setWeight(pokemonInformation.getWeight());
                 pokemon.setHeight(pokemonInformation.getHeight());
                 pokemon.setImage(pokemonInformation.getSprites().getOther().getOfficialArtwork().getFront_default());
-                pokemon.setPrice(20);
+                pokemon.setPrice(((pokemonInformation.getHeight() % 3) + 1) * 20);
                 pokemon.setType(type);
                 pokemon.setAbilities(abilityList);
 
