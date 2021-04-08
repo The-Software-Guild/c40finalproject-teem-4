@@ -87,14 +87,29 @@ public class UserController {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String money = request.getParameter("money");
-        String[] userpokemonIds = request.getParameterValues("pokemonId");
+        String[] pokemonIds = request.getParameterValues("pokemonId");
 
-        FieldError error;
+//        FieldError error;
+//
+//        if(pokemonIds.length == 0){
+//            error = new FieldError("user", "pokemonId", "Must contain at least 1 pokemon");
+//            result.addError(error);
+//        }
 
-        if(userpokemonIds.length == 0){
-            error = new FieldError("user", "pokemonId", "Must contain at least 1 pokemon");
-            result.addError(error);
+        user.setId(Integer.parseInt(id));
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setEmail(email);
+        user.setPassword(password);
+        user.setMoney(Double.parseDouble(money));
+
+        List<Pokemon> pokemon = new ArrayList<>();
+
+        for(String pokemonId : pokemonIds){
+            pokemon.add(pokemonDao.getPokemonById(Integer.parseInt(pokemonId)));
         }
+
+        user.setPokemons(pokemon);
 
         if(result.hasErrors()) {
             model.addAttribute("pokemon", pokemonDao.getAll());
