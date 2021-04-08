@@ -117,12 +117,22 @@ public class BattleService {
         if (this.getOpponentHp() <= 0) {
             return "Game over! Return to the select page to battle another Pokemon!";
         }
+        else if (userPokemon.getHealth() <= 0) {
+            return userPokemon.getName() + " has fainted! Return to select page to battle again.";
+        }
         return "";
     }
 
     public List<String> opponentTurn() {
         int opponentAP = 8;
         List<String> opponentTurnMessages = new ArrayList<>();
+        if (this.getOpponentHp() <= 0) {
+            opponentTurnMessages.add("Game over! Return to the select page to battle another Pokemon!");
+            return opponentTurnMessages;
+        } else if (userPokemon.getHealth() <= 0) {
+            opponentTurnMessages.add(userPokemon.getName() + " has fainted! Return to select page to battle again.");
+            return opponentTurnMessages;
+        }
         String opponentName = opponent.getName();
         String userName = userPokemon.getName();
         Random rand = new Random();
@@ -151,6 +161,9 @@ public class BattleService {
                 userPokemon.setHealth(userHealth - atk); // subtract damage from user health
             }
             opponentTurnMessages.add(message);
+            if (userPokemon.getHealth() <= 0) {
+                break;
+            }
         }
         return opponentTurnMessages;
     }

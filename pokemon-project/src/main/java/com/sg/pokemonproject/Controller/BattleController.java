@@ -29,6 +29,14 @@ public class BattleController {
 
     private int AP = 8;
 
+    @GetMapping("caughtThemAll")
+    public String caughtThemAll() {
+        if (battleSelectService.getUserId() == 0) {
+            return "redirect:/signin";
+        }
+        return "caughtThemAll";
+    }
+
     @GetMapping("battleSelect")
     public String battleSelect(Model model) {
         if (battleSelectService.getUserId() == 0) {
@@ -37,8 +45,12 @@ public class BattleController {
         //retrieve user's pokemon and pokemon available to battle
         List<Pokemon> userPokemon = battleSelectService.getUserPokemon();
         List<Pokemon> otherPokemon = battleSelectService.getOtherPokemon();
+        if (otherPokemon.size() <= 0) {
+            return "redirect:/caughtThemAll";
+        }
         model.addAttribute("userPokemon", userPokemon);
         model.addAttribute("otherPokemon", otherPokemon);
+        battleService.setUserAP(8);
         return "battleSelect";
     }
 
@@ -47,10 +59,15 @@ public class BattleController {
         if (battleSelectService.getUserId() == 0) {
             return "redirect:/signin";
         }
+        List<Pokemon> otherPokemon = battleSelectService.getOtherPokemon();
+        if (otherPokemon.size() <= 0) {
+            return "redirect:/caughtThemAll";
+        }
         String uPokeId = request.getParameter("userPokeId");
         String oPokeId = request.getParameter("opponentPokeId");
         battleService.setUserPokemon(Integer.parseInt(uPokeId));
         battleService.setOpponent(Integer.parseInt(oPokeId));
+        battleService.setUserAP(8);
         /*
         Battle battle = new Battle();
         battle.setUserId(battleService.getUser().getId());
@@ -66,6 +83,10 @@ public class BattleController {
     //public String battle(@PathVariable("userId") int userId, @PathVariable("oppId") int oppId, Model model) {
         if (battleSelectService.getUserId() == 0) {
             return "redirect:/signin";
+        }
+        List<Pokemon> otherPokemon = battleSelectService.getOtherPokemon();
+        if (otherPokemon.size() <= 0) {
+            return "redirect:/caughtThemAll";
         }
         List<Ability> abilities = battleService.getUserPokemon().getAbilities();
         model.addAttribute("userAP", battleService.getUserAP());//user's AP starts at 8 for every turn
