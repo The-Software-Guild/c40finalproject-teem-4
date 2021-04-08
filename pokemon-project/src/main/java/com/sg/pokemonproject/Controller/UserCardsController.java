@@ -40,6 +40,9 @@ public class UserCardsController {
         }
         else {
             User user = userDao.getUserById(userDao.getUserConnected());
+            double money = userDao.getUserById(userDao.getUserConnected()).getMoney();
+
+            model.addAttribute("money", money);
             List<Pokemon> pokemons1 = userDao.getPokemonsForUser(user);
             List<Pokemon> pokemon = new ArrayList<>();
             for (Pokemon pokemon1 : pokemons1) {

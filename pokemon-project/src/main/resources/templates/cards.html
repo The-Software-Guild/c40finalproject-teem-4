@@ -118,6 +118,14 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
 
 <div class="container">
+    <div class="row ">
+        <div class="col-sm-10"></div>
+        <div class=" border border-dark rounded bg-light d-inline-flex p-2">
+               <h4 th:text="${money}"></h4>
+            &nbsp;&nbsp;
+            <i class="fas fa-coins" style="font-size:25px; color:brown"></i>
+        </div>
+    </div>
     <div class="row m-4 border border-dark rounded bg-light">
         <div class="col-12 m-1 text-center"
              th:if="${!Error.equals('')}">
