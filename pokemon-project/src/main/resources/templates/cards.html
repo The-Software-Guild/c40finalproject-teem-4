@@ -4,7 +4,6 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" media="screen" th:href="@{/css/styles.css}"/>
@@ -19,7 +18,6 @@
     <title>Pokemon Manager</title>
     <style>
 body {font-family: Arial, Helvetica, sans-serif;}
-
 /* Create two equal columns that floats next to each other */
 .column10 {
   float: left;
@@ -27,19 +25,16 @@ body {font-family: Arial, Helvetica, sans-serif;}
   padding: 10px;
   height: 300px; /* Should be removed. Only for demonstration */
 }
-
 /* Clear floats after the columns */
 .row:after {
   content: "";
   display: table;
   clear: both;
 }
-
 .navbar {
   overflow: hidden;
   background-color: #333;
 }
-
 .navbar a {
   float: left;
   font-size: 16px;
@@ -52,12 +47,10 @@ body {font-family: Arial, Helvetica, sans-serif;}
   background-color: #ddd;
   color: black;
 }
-
 .dropdown {
   float: left;
   overflow: hidden;
 }
-
 .dropdown .dropbtn {
   font-size: 16px;
   border: none;
@@ -68,8 +61,6 @@ body {font-family: Arial, Helvetica, sans-serif;}
   font-family: inherit;
   margin: 0;
 }
-
-
 .dropdown-content {
   display: none;
   position: absolute;
@@ -78,7 +69,6 @@ body {font-family: Arial, Helvetica, sans-serif;}
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
 }
-
 .dropdown-content a {
   float: none;
   color: black;
@@ -87,36 +77,25 @@ body {font-family: Arial, Helvetica, sans-serif;}
   display: block;
   text-align: left;
 }
-
 .dropdown-content a:hover {
   background-color: #ddd;
 }
-
 .dropdown:hover .dropdown-content {
   display: block;
 }
-
 </style>
-
 </head>
 <body style="margin-top: 100px; background-image: url('images/pikachu.png')">
-
-
 <nav class="navbar navbar-expand-lg navbar-light bg-dark fixed-top">
     <h2 style="color:white">Pokemon Game</h2>
     <h1>    &nbsp;&nbsp; &nbsp; </h1>
-    <a class="active" href="home"><i class="fa fa-fw fa-home"></i> Home</a>
-    <a href="battleSelect"><i class="fa fa-fw fa-bolt"></i> Battle</a>
-    <a href="cards"><i class="fa fa-bookmark"></i> Store</a>
-    <a href="UserCards"><i class="fa fa-archive"></i> My Cards</a>
+    <a class="active" href="/home"><i class="fa fa-fw fa-home"></i> Home</a>
+    <a href="/battleSelect"><i class="fa fa-fw fa-bolt"></i> Battle</a>
+    <a href="/cards"><i class="fa fa-bookmark"></i> Store</a>
+    <a href="/UserCards"><i class="fa fa-archive"></i> My Cards</a>
     <h1>    &nbsp;&nbsp;    &nbsp;&nbsp;   &nbsp;&nbsp;&nbsp;   &nbsp;&nbsp;   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;    &nbsp;&nbsp;   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; </h1>
-
-    <a href="signin"><i class="fa fa-sign-out"></i> Log Out</a>
-
-
+    <a href="/signin"><i class="fa fa-sign-out"></i> Log Out</a>
 </nav>
-
-
 <div class="container">
     <div class="row ">
         <div class="col-sm-10"></div>
@@ -135,63 +114,56 @@ body {font-family: Arial, Helvetica, sans-serif;}
         <div class="row20" >
             <div class="column20" th:each="pokemons : ${pokemon}">
                 <form action="buy" method="POST" class="p-2">
-
                     <div class="card20">
-
                         <label for="pokemonId" class="col-sm-3 col-form-label" hidden>
                             Name</label>
                         <div class="col-sm-9">
                             <input type="text" name="pokemonId" id="pokemonId"
                                    class="form-control" th:value="${pokemons.id}" hidden />
-
                         </div>
-                            <br />
-                            <h3 th:text="${pokemons.name}">Name</h3>
-                            <img  th:src="${pokemons.image}"  height="120px"/>
-                            <div class="row mt-3">
-                                <div class="col-sm text-right">
-                                    <h6>Health: </h6>
-                                </div>
-                                <div class="col-sm text-left">
-                                    <h6 th:text="${pokemons.health}"> Health    </h6>
-                                </div>
+                        <br />
+                        <h3 th:text="${pokemons.name}">Name</h3>
+                        <img  th:src="${pokemons.image}"  height="120px"/>
+                        <div class="row mt-3">
+                            <div class="col-sm text-right">
+                                <h6>Health: </h6>
                             </div>
-                            <div class="row">
-                                <div class="col-sm text-right">
-                                    <h6>Weight: </h6>
-                                </div>
-                                <div class="col-sm text-left">
-                                    <h6 th:text="${pokemons.weight}+' ' + Kg"  > weight</h6>
-                                </div>
+                            <div class="col-sm text-left">
+                                <h6 th:text="${pokemons.health}"> Health    </h6>
                             </div>
-                            <div class="row">
-                                <div class="col-sm text-right">
-                                    <h6>Height: </h6>
-                                </div>
-                                <div class="col-sm text-left">
-                                    <h6 th:text="${pokemons.height}+' ' + m"  > height</h6>
-                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm text-right">
+                                <h6>Weight: </h6>
                             </div>
+                            <div class="col-sm text-left">
+                                <h6 th:text="${pokemons.weight}+' ' + Kg"  > weight</h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm text-right">
+                                <h6>Height: </h6>
+                            </div>
+                            <div class="col-sm text-left">
+                                <h6 th:text="${pokemons.height}+' ' + m"  > height</h6>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-sm">
-                            <button type="submit"  class="btn btn-info mt-2 mb-3">
-                                <div class="row">
-                                    <div class="col-sm text-right"><h6 th:text="${pokemons.price}"></h6></div>
-
-                                    <div class="col-sm text-left"><i class="fas fa-coins"></i></div>
-                                </div>
-                            </button>
-                                </div>
+                                <button type="submit"  class="btn btn-info mt-2 mb-3">
+                                    <div class="row">
+                                        <div class="col-sm text-right"><h6 th:text="${pokemons.price}"></h6></div>
+                                        <div class="col-sm text-left"><i class="fas fa-coins"></i></div>
+                                    </div>
+                                </button>
+                            </div>
                         </div>
-
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
-
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
