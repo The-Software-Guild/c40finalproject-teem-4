@@ -2,6 +2,7 @@ package com.sg.pokemonproject.Dao;
 
 import com.sg.pokemonproject.Entity.Type;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -20,13 +21,26 @@ public class TypeDaoDB implements TypeDao {
     @Override
     @Transactional
     public Type addType(Type type) {
-        final String INSERT_TYPE = "INSERT INTO Type(`Name`) VALUES (?)";
-        jdbc.update(INSERT_TYPE, type.getName());
+        Type fromDBType = new Type();
+        try{
+            final String SELECT_IF_EXISTS = "SELECT * FROM type WHERE `Name` = ?";
+            fromDBType = jdbc.queryForObject(SELECT_IF_EXISTS, new TypeMapper(), type.getName());
+        } catch(DataAccessException ex){
+            fromDBType = null;
+        }
 
-        int newId = jdbc.queryForObject("Select Last_Insert_Id()", Integer.class);
-        type.setId(newId);
+        if(fromDBType == null){
+            final String INSERT_TYPE = "INSERT INTO Type(`Name`) VALUES (?)";
+            jdbc.update(INSERT_TYPE, type.getName());
 
-        return type;
+            int newId = jdbc.queryForObject("Select Last_Insert_Id()", Integer.class);
+            type.setId(newId);
+
+            return type;
+        }
+        else{
+            return fromDBType;
+        }
     }
 
     @Override
